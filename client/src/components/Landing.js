@@ -30,7 +30,7 @@ const Landing = () => {
 			<div className="ocean">
 				<div className="wave2"></div>
 				<div className="wave1"></div>
-				<div className="wave2"></div>
+				<div className="wave3"></div>
 			</div>
 		</div>
 		);

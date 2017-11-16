@@ -25,25 +25,36 @@ body{
 .wave1 {
   background: url(http://tedmcdo.com/labs/wave.svg) repeat-x; 
   position: absolute;
-  top: -120px;
+  top: -110px;
   width: 6400px;
-  height: 150px;
-  animation: wave 7s cubic-bezier( 0.63, 0.93, 0.63, 0.93) infinite;
+  height: 110px;
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
   transform: translate3d(0, 0, 0);
-  opacity: 1;
 }
 
 
 .wave2 {
 	background: url(http://tedmcdo.com/labs/wave.svg) repeat-x; 
   position: absolute;
-  top: -120px;
+  top: -90px;
   width: 6300px;
-  height: 150px;
-  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -7.25s infinite;
+  height: 120px;
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
   transform: translate3d(0, 0, 0);
   opacity: 0.8;
 }
+
+.wave3 {
+  background: url(http://tedmcdo.com/labs/wave.svg) repeat-x; 
+  position: absolute;
+  top: -90px;
+  width: 6000px;
+  height: 120px;
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.525s infinite, swell 7s ease -1.25s infinite;
+  transform: translate3d(0, 0, 0);
+  opacity: 0.7;
+}
+
 
 @keyframes wave {
   0% {
@@ -53,6 +64,7 @@ body{
     margin-left: -1600px;
   }
 }
+
 
 @keyframes swell {
   0%, 100% {
