@@ -3,11 +3,10 @@ import { BrowserRouter, Route} from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-import Header from './header';
-import Application from './helmet';
+import Header from './Header';
 import Landing from './Landing';
-const SurveyNew = () => <h2>Survey New</h2>
-const Dashboard = () => <h2>Dashboard</h2>
+import Dashboard from './Dashboard';
+const SurveyNew = () => <h2>Survey New</h2>;
 
 class App extends Component {
 	componentDidMount() {
@@ -17,14 +16,13 @@ class App extends Component {
 	render() {
 		return(
 			<div>
-				<Application />
 				<BrowserRouter>
 					<div>
 						<Header />
 						<div className="container">
 							<Route exact path="/" component={Landing} />
-							<Route exact path="/surveys" component={Dashboard} />
-							<Route exact path="/surveys/new" component={SurveyNew} />
+							<Route exact path="/home" component={Dashboard} />
+							<Route exact path="/surf/add" component={SurveyNew} />
 						</div>
 					</div>
 				</BrowserRouter>
