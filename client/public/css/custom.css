@@ -1,58 +1,64 @@
+
+html, body { 
+  min-height: -webkit-fill-available; 
+}
+
 #slide-out{
-	transition: .8s transform;
+  transition: .8s transform;
 }
 
 #slide-out * a:hover{
-	background-color: rgba(0,0,0,0.1);
-	transition: background-color .3s;
+  background-color: rgba(0,0,0,0.1);
+  transition: background-color .3s;
 }
 
-html, body { height: 100%; }
-
-body{
-	overflow: hidden;
+#root {
+  overflow: hidden;
+  position: relative;
+  min-height: -webkit-fill-available;  
 }
+
 
 .ocean { 
-  height: 0px;
   width:100%;
-  position:absolute;
-  bottom:0;
-  left:0;
-  background: #015871;
+  bottom:0px;
 }
 
 .wave1 {
   background: url(http://tedmcdo.com/labs/wave.svg) repeat-x; 
   position: absolute;
-  top: -110px;
-  width: 6400px;
-  height: 110px;
+  bottom: -30px;
+  width: 6000px;
+  height: 100px;
   animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
   transform: translate3d(0, 0, 0);
 }
 
 
 .wave2 {
-	background: url(http://tedmcdo.com/labs/wave.svg) repeat-x; 
+  background: url(http://tedmcdo.com/labs/wave.svg) repeat-x; 
   position: absolute;
-  top: -90px;
-  width: 6300px;
-  height: 120px;
+  bottom: -30px;
+  width: 6000px;
+  height: 110px;
   animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
   transform: translate3d(0, 0, 0);
   opacity: 0.8;
 }
 
 .wave3 {
-  background: url(http://tedmcdo.com/labs/wave.svg) repeat-x; 
-  position: absolute;
-  top: -90px;
+  background: url(http://tedmcdo.com/labs/wave.svg) repeat-x;
+  position: absolute; 
+  bottom: -30px;
   width: 6000px;
   height: 120px;
   animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.525s infinite, swell 7s ease -1.25s infinite;
   transform: translate3d(0, 0, 0);
   opacity: 0.7;
+}
+
+.helper {
+  color: white;
 }
 
 
