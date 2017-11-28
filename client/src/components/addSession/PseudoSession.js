@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Toggle } from "material-ui";
 import { Field } from "redux-form";
 import PseudoForm from "./PseudoForm";
+import roundSlider from "round-slider";
 import $ from 'jquery';
 
 class PseudoSession extends Component {
