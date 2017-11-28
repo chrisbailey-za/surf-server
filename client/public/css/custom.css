@@ -18,6 +18,16 @@ html, body {
   min-height: -webkit-fill-available;  
 }
 
+#surfVal {
+  height:50px;
+  width:50px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: grey;
+}    
+
 
 .ocean { 
   width:100%;
@@ -61,6 +71,10 @@ html, body {
   color: white;
 }
 
+select.select{
+  display: block;
+}
+
 
 @keyframes wave {
   0% {
@@ -80,3 +94,38 @@ html, body {
     transform: translate3d(0,5px,0);
   }
 }
+
+.rs-control .rs-range-color {
+    background-color: black;
+}
+
+.rs-control .rs-path-color {
+    background-color: white;
+}
+
+.rs-control .rs-bg-color {
+    background-color: white;
+}
+
+.rs-border  {
+    border-color: black;
+}
+
+.rs-handle  {
+  width: 0; 
+  height: 0;
+  margin-top: -20px !important;
+  margin-right: 10px !important;
+  background: none;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent; 
+  border-right:40px solid #0097a7; 
+}
+  .rs-handle:after  {
+    display: block;
+    content: " ";
+    width: 50px;
+    position: absolute;
+    margin-top: -5px;
+    right: 15px;
+    border-top: 10px solid #0097a7;

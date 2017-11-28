@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route} from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Header from './Header';
+import Header from './header/Header';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
-const SurveyNew = () => <h2>Survey New</h2>;
+import SurfNew from './addSession/SurfNew';
 
 class App extends Component {
 	componentDidMount() {
@@ -17,14 +18,16 @@ class App extends Component {
 		return(
 			<div>
 				<BrowserRouter>
-					<div>
-						<Header />
-						<div className="container">
-							<Route exact path="/" component={Landing} />
-							<Route exact path="/home" component={Dashboard} />
-							<Route exact path="/surf/add" component={SurveyNew} />
+					<MuiThemeProvider>
+						<div>
+							<Header />
+							<div className="container">
+								<Route exact path="/" component={Landing} />
+								<Route exact path="/home" component={Dashboard} />
+								<Route exact path="/surf/add" component={SurfNew} />
+							</div>
 						</div>
-					</div>
+					</MuiThemeProvider>
 				</BrowserRouter>
 			</div>
 			);

@@ -6,30 +6,28 @@ class SideNavComponent extends Component {
 	constructor(props){
     super(props);
     this.state = {visibility: {transform: 'translateX(-105%)', transition: 'all 0.8s'}};
-    this.showMenu = this.showMenu.bind(this);
-    this.hideMenu = this.hideMenu.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
   }
 
-  showMenu(){
-    this.setState({visibility: {transform: 'none', transition: 'all 0.8s'}});
+  toggleMenu(){
+  	var visState = this.state.visibility;
+  	visState.transform === 'none' ? 
+  	this.setState({visibility: {transform: 'translateX(-105%)', transition: 'all 0.8s'}}) : 
+  	this.setState({visibility: {transform: 'none', transition: 'all 0.8s'}});
   }
 
-  hideMenu(){
-  	this.setState({visibility: {transform: 'translateX(-105%)', transition: 'all 0.8s'}});
-  }
-	
 	render(){
 
 		return(
 			<div>
 				<ul id="nav-mobile" className="left">
 					<li>
-						<a onClick={this.showMenu}>
+						<a onClick={this.toggleMenu}>
 							<i className="material-icons" >menu</i>
 						</a>
 					</li>
 				</ul>
-				<SideNav vis={this.state.visibility} changeVis={this.hideMenu}/>
+				<SideNav vis={this.state.visibility} changeVis={this.toggleMenu}/>
 			</div>
 		)
 	}

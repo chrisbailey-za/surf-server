@@ -12,10 +12,10 @@ class Header extends Component {
 				return (
 				<ul className="right">
 					<li>
-						<a href="/">How it Works</a>
+						<Link to="/about">How it Works</Link>
 					</li>
 					<li>
-						<a href="">Ts & Cs</a>
+						<Link to='/terms'href="">Ts & Cs</Link>
 					</li>
 					<li>
 						<a href="/auth/google">Login</a>

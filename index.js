@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const keys = require('./config/keys');
-require('./models/user');
+require('./models/User');
+require('./models/Spot');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
@@ -21,6 +22,7 @@ app.use(passport.session());
 
 //returns function and immediately calls with the variable app
 require('./routes/authRoutes')(app);
+require('./routes/spotRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
 	// Express will serve production assests like main.js file
