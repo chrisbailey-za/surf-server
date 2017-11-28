@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import PseudoSlider from "../forms/PseudoSlider";
 import DirectionSelector from "../forms/DirectionSelector";
-import $ from 'jquery';
-import roundSlider from 'round-slider';
 import { Field } from "redux-form";
 
 
