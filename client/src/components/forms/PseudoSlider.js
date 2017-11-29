@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ unit, input, label }) => {
+export default ({ unit, input, label, min, max, step }) => {
 
 	return (
 		  <div className="row valign-wrapper">
@@ -9,7 +9,7 @@ export default ({ unit, input, label }) => {
 		  	</div>
 		  	<div className="col s6 m8">
 			  	<p className="range-field">
-			  		<input {...input} type="range" min="-10" max="10" step="0.5"></input>
+			  		<input {...input} type="range" min={min} max={max} step={step}></input>
 			  	</p>
 		  	</div>
 		  	<div className="col s3 m1 valign-wrapper">

@@ -9,10 +9,11 @@ class PseudoForm extends Component {
 		render() {
 		return (
 			<div>
-				<Field unit="ft" label="Swell Size" type="text" name="pseudoSwell" component={PseudoSlider}/>
-				<Field unit="km/h" label="Wind Speed" type="text" name="pseudoWind" component={PseudoSlider}/>
-				<Field unit="m" label="Tide" type="text" name="pseudoTide" component={PseudoSlider}/>
+				<Field min="-10" max="10" step="0.5" unit="ft" label="Swell Size" type="text" name="pseudoSwell" component={PseudoSlider}/>
+				<Field min="-50" max="50" step="1" unit="km/h" label="Wind Speed" type="text" name="pseudoWind" component={PseudoSlider}/>
+				<Field min="-1.5" max="1.5" step="0.1" unit="m" label="Tide" type="text" name="pseudoTide" component={PseudoSlider}/>
 				<Field label="Wind Direction" sliderId="windSlider" name="pseudoWindDir" component={DirectionSelector}/>
+				<Field label="Swell Direction" sliderId="swellSlider" name="pseudoSwellDir" component={DirectionSelector}/>
 			 </div>
 			)
 	}
