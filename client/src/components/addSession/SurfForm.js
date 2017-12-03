@@ -11,7 +11,6 @@ import PseudoSession from "./PseudoSession";
 class SurfForm extends Component {
 
 	componentDidMount(){
-    $('select').material_select();
 
 	  $('.datepicker').pickadate({
 	    selectMonths: false, // Creates a dropdown to control month
@@ -53,7 +52,7 @@ class SurfForm extends Component {
 					{this.renderFields()}
 					<PseudoSession change={this.props.change}></PseudoSession>
 					<div className="valign-wrapper">
-						<button className="orange btn-large black-text" type="submit">Add Surf</button>
+						<button className="orange btn-large black-text" type="submit" style={{margin:'auto', paddingLeft:'30%', paddingRight:'30%'}}>Add Surf</button>
 					</div>
 				</form>
 			</div>

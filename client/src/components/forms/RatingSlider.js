@@ -9,7 +9,7 @@ export default ({ input, label }) => {
 		  	</div>
 		  	<div className="col s6 m8">
 			  	<p className="range-field">
-			  		<input {...input} type="range" id="test5" min="0" max="100" ></input>
+			  		<input {...input} type="range" id="rating" min="0" max="100" style={{height:'40px'}}></input>
 			  	</p>
 		  	</div>
 		  	<div className="col s3 m1 valign-wrapper">

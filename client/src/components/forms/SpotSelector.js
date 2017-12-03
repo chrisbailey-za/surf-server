@@ -14,6 +14,7 @@ export default ({ input, label }) => {
 	  		 		className="mcol s9 " 
 	  		 		onChange={(event, key, payload) => input.onChange(payload)}
 	  		 		style={{width:'100%'}}
+	  		 		selectedMenuItemStyle={{color:'#ff9800'}}
 	  		 	>
 		  		 	<MenuItem value={1} primaryText="Option1" />
 	          <MenuItem value={2} primaryText="Option2" />

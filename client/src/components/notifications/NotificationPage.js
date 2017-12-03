@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import SurfForm from './SurfForm'
+import NotificationList from './NotificationList'
 
 
-class SurfNew extends Component {
+class NotificationPage extends Component {
 
 	renderContent() {
 	switch (this.props.auth) {
@@ -16,11 +16,10 @@ class SurfNew extends Component {
 			);
 		default:
 		return(
-			<SurfForm />
+			<NotificationList />
 			);
 		}
 	}
-
 
 	render(){
 		return(
@@ -34,4 +33,4 @@ function mapStateToProps({ auth }) {
 	return { auth };
 }
 
-export default connect(mapStateToProps)(SurfNew);
+export default connect(mapStateToProps)(NotificationPage);
