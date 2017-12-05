@@ -71,7 +71,7 @@ NotificationList = connect(
 			const kransActive = selector(state, 'kransToggle');
 			const innersActive = selector(state, 'innersToggle');
 			const dunesActive = selector(state, 'dunesToggle');
-			const spotxActive = selector(state, 'spot xToggle');
+			const spotxActive = selector(state, 'spotxToggle');
     return {
       komActive,
       kransActive,

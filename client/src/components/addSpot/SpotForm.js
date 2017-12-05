@@ -28,6 +28,7 @@ class SpotForm extends Component {
 	}
 
 	windSpeedChange(val){
+		console.log(val);
 		this.props.change('windSpeedMin', val[0]);
 		this.props.change('windSpeedMax', val[1]);
 	}
@@ -77,7 +78,7 @@ class SpotForm extends Component {
 					<Field label="Closest MSW Location" type="text" name="location" component={SpotSelector}/>
 					<Field label="How good does it get?" type="text" name="quality" component={SpotQuality}/>
 					<SpotSeperator />
-					<Field label="Swell Size" func={this.swellSizeChange} unit="meters" step={0.25} start={[2,5]} range={{min:0, max:15}} name="swellSize" component={RangeSlider}/>
+					<Field label="Swell Size" func={this.swellSizeChange} unit="meters" step={0.2} start={[2,5]} range={{min:0, max:15}} name="swellSize" component={RangeSlider}/>
 					<div className="row">
 						<label className="col">This assumes a swell period of 14sec. We do account for different swell periods, but that is taken care of behind the scenes.</label>
 					</div>

@@ -2,8 +2,7 @@ import React from 'react';
 import { SelectField, MenuItem } from 'material-ui';
 
 
-export default ({ input, label }) => {
-
+export default ({ input, label, meta:{ error, touched} }) => {
 	return (
 		  <div className="row valign-wrapper">
 		  	<div className="col s5 m3">
@@ -22,6 +21,9 @@ export default ({ input, label }) => {
 	          <MenuItem value={4} primaryText="Option4" />
 	          <MenuItem value={5} primaryText="Option5" />
   				</SelectField>
+  				<div className="red-text">
+		  			{touched && error}
+		  		</div>
 		  	</div>
 		  </div>
 		);

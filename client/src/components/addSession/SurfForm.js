@@ -60,7 +60,27 @@ class SurfForm extends Component {
 	}
 }
 
+function validate(values){
+	const errors = {};
+
+	if(!values.spot){
+		errors.spot = "You need to choose a spot";
+	}
+	if(!values.date){
+		errors.date = "You need to add a date";
+	}
+	if(!values.time){
+		errors.time = "You need to add a time";
+	}
+	if(!values.rating){
+		errors.rating = "It needs a rating";
+	}
+
+	return errors;
+}
+
 export default reduxForm({
+	validate,
 	form: "surfForm",
 	change: change
 })(SurfForm);
