@@ -52,7 +52,7 @@ class SurfForm extends Component {
 					{this.renderFields()}
 					<PseudoSession change={this.props.change}></PseudoSession>
 					<div className="valign-wrapper">
-						<button className="orange btn-large black-text" type="submit" style={{margin:'auto', paddingLeft:'30%', paddingRight:'30%'}}>Add Surf</button>
+						<button className="orange btn-large black-text" type="submit" style={{margin:'auto auto 50px auto', paddingLeft:'30%', paddingRight:'30%'}}>Add Surf</button>
 					</div>
 				</form>
 			</div>

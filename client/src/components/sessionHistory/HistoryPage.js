@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import SpotForm from './SpotForm'
+import HistoryChart from './HistoryChart'
+
 
 class SpotNew extends Component {
 
@@ -10,13 +11,13 @@ class SpotNew extends Component {
 		case null:
 			return;
 		case false:
-			return(
+		return(
 		 		<Redirect to='/'/>
 			);
 		default:
-			return( 
-				<SpotForm />
-			)
+		return(
+			<HistoryChart />
+			);
 		}
 	}
 

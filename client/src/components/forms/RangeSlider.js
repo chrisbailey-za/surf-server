@@ -1,5 +1,4 @@
 import React from 'react';
-import Nouislider from 'react-nouislider';
 import Slider, { Range } from 'rc-slider';
 import Tooltip from 'rc-tooltip';
 import './styles/rc-slider.css';
@@ -21,7 +20,7 @@ const handle = (props) => {
   );
 };
 
-export default ({ input, func, step, label, start, range, unit }) => {
+export default ({ input, func, step, label, start, range, unit, meta:{ error, touched } }) => {
 
 	return (
 		  <div className="row valign-wrapper">
@@ -33,9 +32,11 @@ export default ({ input, func, step, label, start, range, unit }) => {
 			  		handle={handle}
 			  		range={true}
 			  		defaultValue={start}
-			  		range={true}
 			  		step={step} min={range.min} max={range.max} style={{width:'100%'}}>
 					</Range>
+					<div className="red-text">
+	  				{touched && error}
+	  			</div>
 		  	</div>
 		  	<div className="col s3 m1 valign-wrapper">
 			  	<span style={{ textAlign: 'center', fontWeight:'bold'}}>

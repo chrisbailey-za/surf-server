@@ -1,12 +1,19 @@
 import React, { Component } from "react";
-import { reduxForm, Field, change } from "redux-form";
+import { reduxForm, Field, change, getFormValues } from "redux-form";
 import $ from "jquery";
+import { connect } from 'react-redux';
+import * as actions from "../../actions/index";
 import DirectionSelector from "../forms/DirectionSelector";
 import SpotSelector from "../forms/SpotSelector";
 import NameInput from "../forms/NameInput";
 import SpotSeperator from "./SpotSeperator";
 import SpotQuality from "../forms/SpotQuality";
 import RangeSlider from "../forms/RangeSlider";
+
+const testVal = {
+	newName: 'test',
+	rating: 5
+}
 
 class SpotForm extends Component {
 
@@ -17,6 +24,7 @@ class SpotForm extends Component {
       this.windSpeedChange = this.windSpeedChange.bind(this);
       this.swellSizeChange = this.swellSizeChange.bind(this);
       this.tideChange = this.tideChange.bind(this);
+      this.state = {};
   }
 
   updateSwellDir(val){
@@ -93,10 +101,10 @@ class SpotForm extends Component {
 	render() {
 		return (
 			<div style={{paddingTop: '5%'}}>
-				<form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+				<form onSubmit={this.props.handleSubmit(actions.saveSpot(this.props.values))}>
 					{this.renderFields()}
 					<div className="valign-wrapper">
-						<button className="orange btn-large black-text" type="submit" style={{margin:'auto', paddingLeft:'30%', paddingRight:'30%'}}>Add Spot</button>
+						<button className="orange btn-large black-text" type="submit" style={{margin:'auto auto 50px auto', paddingLeft:'30%', paddingRight:'30%'}}>Add Spot</button>
 					</div>
 				</form>
 			</div>
@@ -104,7 +112,40 @@ class SpotForm extends Component {
 	}
 }
 
+function validate(values){
+	const errors = {};
+
+	if(!values.spotName){
+		errors.spotName = "You need to give your spot a name";
+	};
+	if(!values.location){
+		errors.location = "Which of theses is it closest to?";
+	};
+	if(!values.quality){
+		errors.quality = "Sorry, you need to add this";
+	};
+	if(!values.swellSize){
+		errors.swellSize = "You need to add this, how else do you think this works?";
+	};
+	if(!values.swellDir){
+		errors.swellDir = "You need to add this, how else do you think this works?";
+	};
+	if(!values.windSpeed){
+		errors.windSpeed = "You need to add this, how else do you think this works?";
+	};
+	if(!values.windDir){
+		errors.windDir = "You need to add this, how else do you think this works?";
+	};
+	if(!values.tide){
+		errors.tide = "You need to add this, how else do you think this works?";
+	};
+
+	return errors;
+}
+
+
 export default reduxForm({
+	validate,
 	form: "spotForm",
 	change: change
 })(SpotForm);

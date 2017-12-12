@@ -1,18 +1,30 @@
-const requireLogin = require('../middlewares/requireLogin')
 const mongoose = require('mongoose');
+const requireLogin = require('../middlewares/requireLogin');
 const Spot = mongoose.model('spots');
 
 module.exports = app => {
-	app.post('/api/spots/add', requireLogin, (req, res) => {
-		const { name, location, rating, minCondition, maxCondition } = req.body;
+	app.post('/api/spots/add', requireLogin, async (req, res) => {
+
+		const { spotName, location, quality, minCondition, maxCondition } = req.body;
 
 		const spot = new Spot({
-			name: name,
-			rating: rating,
-			minCondition: conditionSchema,
-			maxCondition: conditionSchema,
-			_location: location,
+			spotName: spotName,
+			quality: quality,
+			minCondition: minCondition,
+			maxCondition: maxCondition,
+			location: location,
 			_user: req.user.id
 		});
+		
+	try {
+		await spot.save();
+		req.user.spots.push(spotName);
+		const user = await req.user.save();
+		
+		res.send(user);
+	} catch (err) {
+		res.status(422).send(err);
+	}
+
 	});
 };

@@ -10,7 +10,7 @@ const conditionSchema = new Schema ({
 	swellEnergy: Number,
 	windSpeed: Number,
 	windDirection: Number,
-	tide: Number,
+	tide: Number
 });
 
 module.exports = conditionSchema;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ input, label, sliderId }) => {
+export default ({ input, label, sliderId, meta:{ error, touched } }) => {
 
 	var direction = (val) => {
 				if (val >= 348.75 || val < 11.25){
@@ -62,7 +62,10 @@ export default ({ input, label, sliderId }) => {
 		  		<label className="flow-text">{label}</label>
 		  	</div>
 		  	<div className="col m4 s3">
-					<div id={sliderId} style={{margin:'auto'}}></div>		  	
+					<div id={sliderId} style={{margin:'auto'}}></div>		
+					<div className="red-text">
+	  				{touched && error}
+	  			</div>  	
 				</div>
 				<div className="col m5 s4">
 					<div style={{textAlign:'center'}}>

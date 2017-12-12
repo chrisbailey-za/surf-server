@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 const conditionSchema = require("./Conditions");
 
 const spotSchema = new Schema({
-	name: String,
+	spotName: String,
 	location: String,
 	quality: Number,
 	minCondition: conditionSchema,
@@ -11,4 +11,4 @@ const spotSchema = new Schema({
 	_user: { type: Schema.Types.ObjectId, ref: "User" }
 });
 
-mongoose.model("spots", spotSchema);
+mongoose.model('spots', spotSchema);

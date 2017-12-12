@@ -3,8 +3,6 @@ import Slider from 'rc-slider';
 import Tooltip from 'rc-tooltip';
 import '../forms/styles/rc-slider.css';
 
-const createSliderWithTooltip = Slider.createSliderWithTooltip;
-const Range = createSliderWithTooltip(Slider.Range);
 const Handle = Slider.Handle;
 
 const handle = (props) => {
@@ -30,7 +28,7 @@ export default ({ input, label, rating, func, isActive }) => {
 		  			<Slider handle={handle}
 								onChange={input.onChange} {...isActive} 
                 className='inverted'
-								defaultValue={100-(parseInt(rating)*5)} />
+								defaultValue={100-(parseInt(rating,10)*5)} />
 		  	</div>
 		);
 };

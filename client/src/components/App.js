@@ -10,6 +10,7 @@ import Dashboard from './Dashboard';
 import SurfNew from './addSession/SurfNew';
 import SpotNew from './addSpot/SpotNew';
 import NotificationPage from './notifications/NotificationPage';
+import HistoryPage from './sessionHistory/HistoryPage';
 
 class App extends Component {
 	componentDidMount() {
@@ -26,9 +27,10 @@ class App extends Component {
 							<div className="container">
 								<Route exact path="/" component={Landing} />
 								<Route exact path="/home" component={Dashboard} />
-								<Route exact path="/surf/add" component={SurfNew} />
+								<Route exact path="/session/add" component={SurfNew} />
 								<Route exact path="/spot/add" component={SpotNew} />
 								<Route exact path="/notifications" component={NotificationPage} />
+								<Route exact path="/session/logs" component={HistoryPage} />
 							</div>
 						</div>
 					</MuiThemeProvider>

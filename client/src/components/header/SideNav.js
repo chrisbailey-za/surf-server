@@ -28,8 +28,8 @@ class SideNav extends Component {
 		    </li>
 		    <li><div className="divider no-margin"></div></li>
 		    <li><Link to="/home">Home<i className="material-icons cyan-text text-darken-3 right">home</i></Link></li>
-		    <li><Link to="/surf/add">Add a Session<i className="material-icons cyan-text text-darken-3 right">add_circle</i></Link></li>
-		    <li><Link to="#">My Surf Logs<i className="material-icons cyan-text text-darken-3 right">equalizer</i></Link></li>
+		    <li><Link to="/session/add">Add a Session<i className="material-icons cyan-text text-darken-3 right">add_circle</i></Link></li>
+		    <li><Link to="/session/logs">My Surf Logs<i className="material-icons cyan-text text-darken-3 right">equalizer</i></Link></li>
 		    <li><Link to="/spot/add">Add a Spot<i className="material-icons cyan-text text-darken-3 right">place</i></Link></li>
 		    <li><Link to="#">My Spots<i className="material-icons cyan-text text-darken-3 right">settings</i></Link></li>
 		    <li><Link to="/notifications">My Notifications<i className="material-icons cyan-text text-darken-3 right">notifications</i></Link></li>

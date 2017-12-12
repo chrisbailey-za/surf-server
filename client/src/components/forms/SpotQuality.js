@@ -2,7 +2,7 @@ import React from 'react';
 import { Rating } from 'material-ui-rating';
 
 
-export default ({ input, label }) => {
+export default ({ input, label, meta:{ error, touched }}) => {
 
 	return (
 		<div>
@@ -28,6 +28,9 @@ export default ({ input, label }) => {
 	        		itemIconStyle={{width: 24, height:24}}
 		        />
 			  	</div>
+			  	 <div className="red-text">
+		  			{touched && error}
+		  		</div>
 			  </div>
 		  </div>
 		</div>
