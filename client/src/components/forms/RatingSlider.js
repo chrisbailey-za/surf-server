@@ -1,6 +1,27 @@
 import React from 'react';
+import Slider from 'rc-slider';
+import Tooltip from 'rc-tooltip';
+import '../forms/styles/rc-slider.css';
 
-export default ({ input, label, meta:{touched, error} }) => {
+const Handle = Slider.Handle;
+
+const handle = (props) => {
+  const { value, dragging, index, isActive, ...restProps } = props;
+  return (
+    <Tooltip
+      prefixCls="rc-slider-tooltip"
+      overlay={value}
+      visible={!props.disabled}
+      placement="top"
+
+      key={index}
+    >
+      <Handle value={value} {...restProps} />
+    </Tooltip>
+  );
+};
+
+export default ({ input, label, rating, isActive, meta:{touched, error} }) => {
 
 	return (
 		  <div className="row valign-wrapper">
@@ -8,8 +29,10 @@ export default ({ input, label, meta:{touched, error} }) => {
 		  		<label className="flow-text">{label}</label>
 		  	</div>
 		  	<div className="col s6 m8">
-			  	<input {...input} type="range" id="rating" min="0" max="100" style={{height:'40px'}}></input>
-			  	<div className="red-text">
+		  			<Slider handle={handle}
+								onChange={input.onChange} {...isActive} 
+								defaultValue={0} />		  	
+				  <div className="red-text">
 		  			{touched && error}
 		  		</div>
 		  	</div>

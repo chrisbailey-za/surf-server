@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { reduxForm, Field, change, getFormValues } from "redux-form";
+import { reduxForm, Field, change, formValueSelector } from "redux-form";
 import $ from "jquery";
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import * as actions from "../../actions/index";
 import DirectionSelector from "../forms/DirectionSelector";
 import SpotSelector from "../forms/SpotSelector";
@@ -9,11 +10,6 @@ import NameInput from "../forms/NameInput";
 import SpotSeperator from "./SpotSeperator";
 import SpotQuality from "../forms/SpotQuality";
 import RangeSlider from "../forms/RangeSlider";
-
-const testVal = {
-	newName: 'test',
-	rating: 5
-}
 
 class SpotForm extends Component {
 
@@ -24,7 +20,6 @@ class SpotForm extends Component {
       this.windSpeedChange = this.windSpeedChange.bind(this);
       this.swellSizeChange = this.swellSizeChange.bind(this);
       this.tideChange = this.tideChange.bind(this);
-      this.state = {};
   }
 
   updateSwellDir(val){
@@ -99,10 +94,11 @@ class SpotForm extends Component {
 	};
 
 	render() {
+
 		return (
 			<div style={{paddingTop: '5%'}}>
-				<form onSubmit={this.props.handleSubmit(actions.saveSpot(this.props.values))}>
-					{this.renderFields()}
+				<form onSubmit={this.props.handleSubmit}>					
+				{this.renderFields()}
 					<div className="valign-wrapper">
 						<button className="orange btn-large black-text" type="submit" style={{margin:'auto auto 50px auto', paddingLeft:'30%', paddingRight:'30%'}}>Add Spot</button>
 					</div>
@@ -110,6 +106,7 @@ class SpotForm extends Component {
 			</div>
 		);
 	}
+
 }
 
 function validate(values){
@@ -144,10 +141,14 @@ function validate(values){
 }
 
 
+function dispatchSubmit(values, dispatch) {
+    return dispatch(actions.saveSpot(values));
+}
+
 export default reduxForm({
 	validate,
-	form: "spotForm",
-	change: change
+	form: 'spotForm',
+	change: change,
+	onSubmit: dispatchSubmit
 })(SpotForm);
-
 
