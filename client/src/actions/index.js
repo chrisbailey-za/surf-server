@@ -7,10 +7,7 @@ export const fetchUser = () => async dispatch => {
 	dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-export const saveSpot = values => async dispatch => {
-
-	console.log('fucker');
-	console.log(values);
+export const saveSpot = (values, history) => async dispatch => {
 
 	var newValues = {
 	 	spotName: values.spotName,
@@ -40,8 +37,9 @@ export const saveSpot = values => async dispatch => {
 		location: values.location
 	}
 
-	//const res = await axios.post('/api/spots/add', newValues);
+	const res = await axios.post('/api/spots/add', newValues);
+	history.push('/home');
 
-	//dispatch({ type: FETCH_USER, payload: res.data});
+	dispatch({ type: FETCH_USER, payload: res.data});
 
  };

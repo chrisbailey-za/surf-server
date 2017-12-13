@@ -20,7 +20,12 @@ class SpotForm extends Component {
       this.windSpeedChange = this.windSpeedChange.bind(this);
       this.swellSizeChange = this.swellSizeChange.bind(this);
       this.tideChange = this.tideChange.bind(this);
+      this.dispatchSubmit = this.dispatchSubmit.bind(this);
   }
+
+  dispatchSubmit(values, dispatch, history) {
+    return dispatch(actions.saveSpot(values, this.props.history));
+	}
 
   updateSwellDir(val){
 		this.props.change('swellDir', val);
@@ -97,7 +102,7 @@ class SpotForm extends Component {
 
 		return (
 			<div style={{paddingTop: '5%'}}>
-				<form onSubmit={this.props.handleSubmit}>					
+				<form onSubmit={this.props.handleSubmit((values, dispatch) => this.dispatchSubmit(values, dispatch))}>					
 				{this.renderFields()}
 					<div className="valign-wrapper">
 						<button className="orange btn-large black-text" type="submit" style={{margin:'auto auto 50px auto', paddingLeft:'30%', paddingRight:'30%'}}>Add Spot</button>
@@ -140,15 +145,9 @@ function validate(values){
 	return errors;
 }
 
-
-function dispatchSubmit(values, dispatch) {
-    return dispatch(actions.saveSpot(values));
-}
-
 export default reduxForm({
 	validate,
 	form: 'spotForm',
 	change: change,
-	onSubmit: dispatchSubmit
-})(SpotForm);
+})(withRouter(SpotForm));
 
