@@ -16,11 +16,10 @@ class SurfNew extends Component {
 			);
 		default:
 		return(
-			<SurfForm />
+			<SurfForm spots={this.props.auth.spots}/>
 			);
 		}
 	}
-
 
 	render(){
 		return(

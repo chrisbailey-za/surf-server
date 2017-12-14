@@ -5,14 +5,6 @@ import { SelectField, MenuItem } from 'material-ui';
 
 const SpotSelector = ({ input, label, spots, meta:{ error, touched} }) => {
 
-	const spotList = (() => {
-			return _.map(spots, (spot) => {
-		 		return <MenuItem value={spot} primaryText={spot} />
-		 	})
-	})();
-
-
-
 	return (
 		  <div className="row valign-wrapper">
 		  	<div className="col s5 m3">
@@ -25,7 +17,10 @@ const SpotSelector = ({ input, label, spots, meta:{ error, touched} }) => {
 	  		 		style={{width:'100%'}}
 	  		 		selectedMenuItemStyle={{color:'#ff9800'}}
 	  		 	>
-	  		 		{spotList}
+		  		 	<MenuItem value={1} primaryText="option 1" />
+			 			<MenuItem value={2} primaryText="option 2" />
+			 			<MenuItem value={3} primaryText="option 3" />
+			 			<MenuItem value={4} primaryText="option 4" />
   				</SelectField>
   				<div className="red-text">
 		  			{touched && error}

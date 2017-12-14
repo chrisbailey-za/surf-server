@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from "../../actions/index";
 import DirectionSelector from "../forms/DirectionSelector";
-import SpotSelector from "../forms/SpotSelector";
+import LocationSelector from "../forms/LocationSelector";
 import NameInput from "../forms/NameInput";
 import SpotSeperator from "./SpotSeperator";
 import SpotQuality from "../forms/SpotQuality";
@@ -83,7 +83,7 @@ class SpotForm extends Component {
 		return (
 				<div>
 					<Field label="Spot Name" type="text" name="spotName" component={NameInput}/>
-					<Field label="Closest MSW Location" type="text" name="location" component={SpotSelector}/>
+					<Field label="Closest MSW Location" type="text" name="location" component={LocationSelector}/>
 					<Field label="How good does it get?" type="text" name="quality" component={SpotQuality}/>
 					<SpotSeperator />
 					<Field label="Swell Size" func={this.swellSizeChange} unit="meters" step={0.2} start={[2,5]} range={{min:0, max:15}} name="swellSize" component={RangeSlider}/>

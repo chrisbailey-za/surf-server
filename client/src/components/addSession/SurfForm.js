@@ -10,6 +10,15 @@ import PseudoSession from "./PseudoSession";
 
 class SurfForm extends Component {
 
+	constructor(props){
+    super(props);
+    this.getSpots = this.getSpots.bind(this);
+  }
+
+	getSpots(){
+		return this.props.spots;
+	}
+
 	componentDidMount(){
 
 	  $('.datepicker').pickadate({
@@ -36,7 +45,7 @@ class SurfForm extends Component {
 	renderFields(){
 		return (
 				<div>
-					<Field label="Spot Name" type="text" name="spot" component={SpotSelector}/>
+					<Field label="Spot Name" spots={this.getSpots()} type="text" name="spot" component={SpotSelector}/>
 					<Field label="Date" type="text" name="date" component={DateSelector}/>
 					<Field label="Time" type="text" name="time" component={TimeSelector}/>
 					<Field label="Rating" type="range" name="rating" component={RatingSlider}/>

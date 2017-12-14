@@ -11,6 +11,7 @@ import SurfNew from './addSession/SurfNew';
 import SpotNew from './addSpot/SpotNew';
 import NotificationPage from './notifications/NotificationPage';
 import HistoryPage from './sessionHistory/HistoryPage';
+import SpotConfirmation from './spotConfirmation/SpotConfirmation';
 
 class App extends Component {
 	componentDidMount() {
@@ -29,6 +30,7 @@ class App extends Component {
 								<Route exact path="/home" component={Dashboard} />
 								<Route exact path="/session/add" component={SurfNew} />
 								<Route exact path="/spot/add" component={SpotNew} />
+								<Route exact path="/spot/confirmation" component={SpotConfirmation} />
 								<Route exact path="/notifications" component={NotificationPage} />
 								<Route exact path="/session/logs" component={HistoryPage} />
 							</div>

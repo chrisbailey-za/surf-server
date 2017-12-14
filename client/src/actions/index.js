@@ -38,7 +38,7 @@ export const saveSpot = (values, history) => async dispatch => {
 	}
 
 	const res = await axios.post('/api/spots/add', newValues);
-	history.push('/home');
+	history.push({pathname: '/spot/confirmation', state: {spot:values.spotName}});
 
 	dispatch({ type: FETCH_USER, payload: res.data});
 
