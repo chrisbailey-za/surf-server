@@ -18,8 +18,15 @@ class SpotConfirmation extends Component {
 			return( 
 				<div style={{paddingTop: '5%'}}>
 						<div className="row valign-wrapper">
-							<div className="col flow-text s12 m12 flow-text card center orange lighten-3 black-text" style={{paddingTop:'3%', paddingBottom:'3%'}}>
-			  				<span >Awesome, you just added {!this.props.location.state?'a new spot':this.props.location.state.spot}!! </span><br></br>
+							<div className="col flow-text s12 m12 flow-text card center orange lighten-4 black-text" style={{paddingTop:'3%', paddingBottom:'3%'}}>
+			  				<div className='row'>
+			  					<span >Awesome, you just added {!this.props.location.state?'a new spot':this.props.location.state.spot}!! </span><br></br>
+			  				</div>
+			  				<div className='row'>
+			  					<i class="medium material-icons orange-text text-lighten-2">place</i>
+			  					<i class="large material-icons cyan-text text-darken-3">add_location</i>
+			  					<i class="medium material-icons orange-text text-lighten-2">place</i>
+			  				</div>
 			  			</div>
 			  		</div>
 			  		<div className="row valign-wrapper">

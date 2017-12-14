@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { reduxForm, Field, change, formValueSelector } from "redux-form";
+import { reduxForm, Field, change } from "redux-form";
 import $ from "jquery";
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from "../../actions/index";
 import DirectionSelector from "../forms/DirectionSelector";

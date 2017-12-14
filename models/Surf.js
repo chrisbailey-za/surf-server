@@ -5,7 +5,7 @@ const conditionSchema = require("./Conditions");
 const surfSchema = new Schema({
 	daytime: Date,
 	condition: conditionSchema,
-	pesudoCondition: conditionSchema,
+	pseudo: Boolean,
 	comments: String,
 	_spot: { type: Schema.Types.ObjectId, ref: "Spot" },
 	_user: { type: Schema.Types.ObjectId, ref: "User" }

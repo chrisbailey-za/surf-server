@@ -21,8 +21,8 @@ class SideNav extends Component {
 						</a>
 						</div>
 						<div className='email'>
-							<img src='/img/Logo3.svg' alt="" style={imageStyle}></img>
-			      	<h4>My SurfApp</h4>
+							<img src='/img/Logo.png' alt="" style={imageStyle}></img>
+			      	<h4 className="cyan-text text-lighten-4">My SurfApp</h4>
 			      </div>
 			    </div>
 		    </li>

@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 import { SelectField, MenuItem } from 'material-ui';
 
 
@@ -26,6 +27,7 @@ const SpotSelector = ({ input, label, spots, meta:{ error, touched} }) => {
 	  		 		selectedMenuItemStyle={{color:'#ff9800'}}
 	  		 	>
 	  		 		{spotList}
+	  		 		<Link to="/spot/add"><MenuItem style={{color:'#00838F'}}	value='0' primaryText="Add a new Spot" /></Link>
   				</SelectField>
   				<div className="red-text">
 		  			{touched && error}
