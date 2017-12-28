@@ -16,10 +16,10 @@ const SpotSelector = ({ input, label, spots, meta:{ error, touched} }) => {
 	  		 		style={{width:'100%'}}
 	  		 		selectedMenuItemStyle={{color:'#ff9800'}}
 	  		 	>
-		  		 	<MenuItem value={1} primaryText="option 1" />
-			 			<MenuItem value={2} primaryText="option 2" />
-			 			<MenuItem value={3} primaryText="option 3" />
-			 			<MenuItem value={4} primaryText="option 4" />
+		  		 	<MenuItem value={848} primaryText="Kommetjie" />
+			 			<MenuItem value={847} primaryText="Muizenberg" />
+			 			<MenuItem value={227} primaryText="Eland's Bay" />
+			 			<MenuItem value={1284} primaryText="Kleinmond" />
   				</SelectField>
   				<div className="red-text">
 		  			{touched && error}

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose; 
 
 const forecastSchema = new Schema ({
-	localTimestamp: Number,
-	dayTime: Date,
+	location: Number,
+	dayTime: Number,
 	primarySwellSize: Number,
 	primarySwellDirection: Number,
 	primarySwellPeriod: Number,
@@ -19,4 +19,3 @@ const forecastSchema = new Schema ({
 
 module.exports = forecastSchema;
 
-//https://www.wunderground.com/weather/api/d/docs?d=data/rawtide for tides

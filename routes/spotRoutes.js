@@ -15,16 +15,26 @@ module.exports = app => {
 			location: location,
 			_user: req.user.id
 		});
-		
+	
 	try {
-		await spot.save();
-		req.user.spots.push(spotName);
-		const user = await req.user.save();
+		await spot.save( async (err, spotInstance) => {
+			req.user.spots.push({spotId: spotInstance.id, name: spotInstance.spotName});
+			const user = await req.user.save();
+			res.send({user:user, id:spotInstance.id});
+		});	
 		
-		res.send(user);
 	} catch (err) {
 		res.status(422).send(err);
 	}
 
 	});
 };
+
+module.exports = app => {
+	app.get('/api/spots/fetchAll', requireLogin, async (req, res) => {
+		const spots = await Spot.find({ _user: req.user.id })
+			.select()
+
+		res.send(spots);
+	})
+}

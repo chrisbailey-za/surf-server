@@ -8,7 +8,7 @@ const SpotSelector = ({ input, label, spots, meta:{ error, touched} }) => {
 
 	const spotList = (() => {
 			return _.map(spots, (spot) => {
-		 		return <MenuItem value={spot} primaryText={spot} />
+		 		return <MenuItem value={spot.spotId} primaryText={spot.name} />
 		 	})
 	})();
 

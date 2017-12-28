@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const conditionSchema = require("./Conditions");
 
-const surfSchema = new Schema({
+const sessionSchema = new Schema({
 	daytime: Date,
 	condition: conditionSchema,
 	pseudo: Boolean,
@@ -11,4 +11,4 @@ const surfSchema = new Schema({
 	_user: { type: Schema.Types.ObjectId, ref: "User" }
 });
 
-mongoose.model("surfs", surfSchema);
+mongoose.model('sessions', sessionSchema);

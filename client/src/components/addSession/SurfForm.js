@@ -7,13 +7,19 @@ import SpotSelector from "../forms/SpotSelector";
 import DateSelector from "../forms/DateSelector";
 import TimeSelector from "../forms/TimeSelector";
 import PseudoSession from "./PseudoSession";
+import * as actions from "../../actions/index";
 
 class SurfForm extends Component {
 
 	constructor(props){
     super(props);
     this.getSpots = this.getSpots.bind(this);
+    this.dispatchSubmit = this.dispatchSubmit.bind(this);
   }
+
+  dispatchSubmit(values, dispatch, history) {
+    actions.saveSession(values, this.props.history);
+	}
 
 	getSpots(){
 		return this.props.spots;
@@ -57,11 +63,11 @@ class SurfForm extends Component {
 	render() {
 		return (
 			<div style={{paddingTop: '5%'}}>
-				<form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+				<form onSubmit={this.props.handleSubmit((values, dispatch) => this.dispatchSubmit(values, dispatch))}>
 					{this.renderFields()}
 					<PseudoSession change={this.props.change}></PseudoSession>
 					<div className="valign-wrapper">
-						<button className="orange btn-large black-text" type="submit" style={{margin:'auto auto 50px auto', paddingLeft:'30%', paddingRight:'30%'}}>Add Surf</button>
+						<button className="orange btn-large black-text" type="submit" style={{margin:'auto auto 50px auto', width:'80%', minHeight:'54px', height:'auto', lineHeight: '22px'}}>Add Session</button>
 					</div>
 				</form>
 			</div>

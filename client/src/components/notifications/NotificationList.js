@@ -73,7 +73,7 @@ class NotificationList extends Component {
 					{this.renderFields()}
 				</form>
 				<div className="valign-wrapper">
-					<button className="orange btn-large black-text" type="submit" style={{margin:'auto auto 50px auto', paddingLeft:'30%', paddingRight:'30%'}}>Save Notification Preferences</button>
+					<button className="orange btn-large black-text" type="submit" style={{margin:'auto auto 50px auto', width:'80%', minHeight:'54px', height:'auto', lineHeight: '22px'}}>Save Notification Preferences</button>
 				</div>
 			</div>
 		);

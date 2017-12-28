@@ -23,24 +23,32 @@ class SpotConfirmation extends Component {
 			  					<span >Awesome, you just added {!this.props.location.state?'a new spot':this.props.location.state.spot}!! </span><br></br>
 			  				</div>
 			  				<div className='row'>
-			  					<i class="medium material-icons orange-text text-lighten-2">place</i>
-			  					<i class="large material-icons cyan-text text-darken-3">add_location</i>
-			  					<i class="medium material-icons orange-text text-lighten-2">place</i>
+			  					<i className="medium material-icons orange-text text-lighten-2">place</i>
+			  					<i className="large material-icons cyan-text text-darken-3">add_location</i>
+			  					<i className="medium material-icons orange-text text-lighten-2">place</i>
 			  				</div>
 			  			</div>
 			  		</div>
 			  		<div className="row valign-wrapper">
 				  		<div className="col s6">
 					  		<Link to="/session/add">
-									<button className="orange btn-large flow-text black-text" style={{paddingLeft:'10%', paddingRight:'10%', height:'auto', minHeight: '60px', lineHeight: '20px', textAlign:'left'}}>Add Surf for this Spot
+									<button className="orange btn-large flow-text black-text hide-on-small-only" style={{margin:'auto auto 50px auto', width:'80%', minHeight:'54px', height:'auto', lineHeight: '22px'}}>Add Surf for this Spot
 										<i className="material-icons right">add_circle</i>
+									</button>
+									<button className="orange btn-large flow-text black-text hide-on-med-and-up" style={{margin:'auto auto 50px auto', width:'100%', minHeight:'120px', height:'auto', lineHeight: '22px'}}>Add Surf for this Spot
+										<br></br>
+										<i className="material-icons center">add_circle</i>
 									</button>
 								</Link>
 							</div>
 							<div className="col s6">
 								<Link to="/spot/add">
-									<button className="cyan flow-text darken-1 right btn-large white-text" style={{paddingLeft:'10%', paddingRight:'10%', height:'auto', minHeight: '60px', lineHeight: '20px', textAlign:'left'}}>Add Another Spot
+									<button className="cyan flow-text darken-1 right btn-large white-text hide-on-small-only" style={{margin:'auto auto 50px auto', width:'80%', minHeight:'54px', height:'auto', lineHeight: '22px'}}>Add Another Spot
 										<i className="material-icons right">place</i>
+									</button>
+									<button className="cyan flow-text darken-1 right btn-large white-text hide-on-med-and-up" style={{margin:'auto auto 50px auto', width:'100%', minHeight:'120px', height:'auto', lineHeight: '22px'}}>Add Another Spot
+										<br></br>
+										<i className="material-icons center">place</i>
 									</button>
 								</Link>
 							</div>

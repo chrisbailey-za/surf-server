@@ -85,7 +85,7 @@ class SpotForm extends Component {
 					<Field label="Closest MSW Location" type="text" name="location" component={LocationSelector}/>
 					<Field label="How good does it get?" type="text" name="quality" component={SpotQuality}/>
 					<SpotSeperator />
-					<Field label="Swell Size" func={this.swellSizeChange} unit="meters" step={0.2} start={[2,5]} range={{min:0, max:15}} name="swellSize" component={RangeSlider}/>
+					<Field label="Swell Size" func={this.swellSizeChange} unit="meters" step={0.1} start={[2,5]} range={{min:0, max:15}} name="swellSize" component={RangeSlider}/>
 					<div className="row">
 						<label className="col">This assumes a swell period of 14sec. We do account for different swell periods, but that is taken care of behind the scenes.</label>
 					</div>
@@ -104,7 +104,7 @@ class SpotForm extends Component {
 				<form onSubmit={this.props.handleSubmit((values, dispatch) => this.dispatchSubmit(values, dispatch))}>					
 				{this.renderFields()}
 					<div className="valign-wrapper">
-						<button className="orange btn-large black-text" type="submit" style={{margin:'auto auto 50px auto', paddingLeft:'30%', paddingRight:'30%'}}>Add Spot</button>
+						<button className="orange btn-large black-text" type="submit" style={{margin:'auto auto 50px auto', width:'80%', minHeight:'54px', height:'auto', lineHeight: '22px'}}>Add Spot</button>
 					</div>
 				</form>
 			</div>
