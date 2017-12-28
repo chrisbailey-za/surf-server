@@ -15,7 +15,8 @@ html, body {
 #root {
   overflow: hidden;
   position: relative;
-  min-height: -webkit-fill-available;  
+  min-height: -webkit-fill-available;
+  min-height: -moz-available;  
 }
 
 #surfVal {
@@ -35,7 +36,7 @@ html, body {
 }
 
 .wave1 {
-  background: url(http://tedmcdo.com/labs/wave.svg) repeat-x; 
+  background: url(/img/wave.svg) repeat-x; 
   position: absolute;
   bottom: -30px;
   width: 6000px;
@@ -46,7 +47,7 @@ html, body {
 
 
 .wave2 {
-  background: url(http://tedmcdo.com/labs/wave.svg) repeat-x; 
+  background: url(/img/wave.svg) repeat-x; 
   position: absolute;
   bottom: -30px;
   width: 6000px;
@@ -57,7 +58,7 @@ html, body {
 }
 
 .wave3 {
-  background: url(http://tedmcdo.com/labs/wave.svg) repeat-x;
+  background: url(/img/wave.svg) repeat-x;
   position: absolute; 
   bottom: -30px;
   width: 6000px;

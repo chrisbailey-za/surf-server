@@ -50,13 +50,13 @@ if (process.env.NODE_ENV === 'production') {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
 
-	//var tideCron = new CronJob('* * *', () => {
-	//	 tideCall();
-	//});
+	var tideCron = new CronJob('0 0 0 * * *', () => {
+		 tideCall();
+	});
 
 	var mswCron = new CronJob('0 0 * * * *', () => {
 	   mswCall()
 	});
 
-	//tideCron.start();
+	tideCron.start();
 	mswCron.start();
