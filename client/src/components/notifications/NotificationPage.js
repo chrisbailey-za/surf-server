@@ -33,4 +33,4 @@ function mapStateToProps({ auth }) {
 	return { auth };
 }
 
-export default connect(mapStateToProps)(NotificationPage);
+export default connect( mapStateToProps)(NotificationPage)

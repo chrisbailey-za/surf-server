@@ -145,7 +145,7 @@ const transferObject = data => {
 function addTide(condition) {
 	var date = new Date();
 	date = Math.round(date.getTime() / 3600000) * 3600;
-	//const further = condition.map( async (elem) => {
+
 	var conditionArr = condition;
 	var resultData = [];
 
@@ -155,7 +155,7 @@ function addTide(condition) {
 	) {
 		try {
 			const tideArr = doc.tideTable.map(tide => {
-				return { [tide.dt]: tide.height };
+				return { [tide.dt]: tide.height + 0.18};
 			});
 
 			var resultObject = tideArr.reduce(function(result, currentObject) {
@@ -186,11 +186,11 @@ function addTide(condition) {
 									primarySwellSize: lastForecast.primarySwellSize,
 									primarySwellDirection: lastForecast.primarySwellDirection,
 									primarySwellPeriod: lastForecast.primarySwellPeriod,
-									primarySwellEnergy: Math.round(lastForecast.primarySwellEnergy*10)/10,
+									primarySwellEnergy: lastForecast.primarySwellEnergy,
 									secondarySwellSize: lastForecast.secondarySwellSize,
 									secondarySwellDirection: lastForecast.secondarySwellDirection,
 									secondarySwellPeriod: lastForecast.secondarySwellPeriod,
-									secondarySwellEnergy: Math.round(lastForecast.primarySwellEnergy*10)/10,
+									secondarySwellEnergy: lastForecast.secondarySwellEnergy,
 									windSpeed: lastForecast.windSpeed,
 									windDirection: lastForecast.windDirection,
 									tide: lastForecast.tide
@@ -218,4 +218,3 @@ function addTide(condition) {
 
 module.exports = mswCall;
 
-//https://www.wunderground.com/weather/api/d/docs?d=data/rawtide for tides

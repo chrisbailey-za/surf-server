@@ -13,6 +13,8 @@ module.exports = app => {
 			minCondition: minCondition,
 			maxCondition: maxCondition,
 			location: location,
+			notification: quality > 2 ? true : false,
+			notificationVal: 100 - quality*5,
 			_user: req.user.id
 		});
 	
@@ -27,14 +29,19 @@ module.exports = app => {
 		res.status(422).send(err);
 	}
 
-	});
-};
+	})
 
-module.exports = app => {
 	app.get('/api/spots/fetchAll', requireLogin, async (req, res) => {
 		const spots = await Spot.find({ _user: req.user.id })
 			.select()
 
 		res.send(spots);
 	})
-}
+
+	app.get('/api/spots/fetchNotifications', requireLogin, async (req, res) => {
+		const spots = await Spot.find({ _user: req.user.id })
+			.select('spotName notification notificationVal')
+
+		res.send(spots);
+	})
+};

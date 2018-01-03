@@ -8,6 +8,8 @@ const spotSchema = new Schema({
 	quality: Number,
 	minCondition: conditionSchema,
 	maxCondition: conditionSchema,
+	notification: Boolean,
+	notificationVal: Number,
 	_user: { type: Schema.Types.ObjectId, ref: "User" }
 });
 
