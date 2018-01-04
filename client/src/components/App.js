@@ -12,6 +12,7 @@ import SpotNew from './addSpot/SpotNew';
 import NotificationPage from './notifications/NotificationPage';
 import HistoryPage from './sessionHistory/HistoryPage';
 import SpotConfirmation from './spotConfirmation/SpotConfirmation';
+import MySpotPage from './mySpots/mySpotPage'
 
 class App extends Component {
 	componentDidMount() {
@@ -33,6 +34,7 @@ class App extends Component {
 								<Route exact path="/spot/confirmation" component={SpotConfirmation} />
 								<Route exact path="/notifications" component={NotificationPage} />
 								<Route exact path="/session/logs" component={HistoryPage} />
+								<Route exact path="/spot/list" component={MySpotPage} />
 							</div>
 						</div>
 					</MuiThemeProvider>

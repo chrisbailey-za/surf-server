@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import Slider from 'rc-slider';
-import { reduxForm, change } from 'redux-form';
+import { change } from 'redux-form';
 import { Toggle } from 'material-ui';
 import Tooltip from 'rc-tooltip';
 import '../forms/styles/rc-slider.css';

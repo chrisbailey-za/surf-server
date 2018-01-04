@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_NOTIFICATIONS } from './types';
+import { FETCH_USER, FETCH_NOTIFICATIONS, FETCH_SPOTS } from './types';
 
 export const fetchUser = () => async dispatch => {
 	const res = await axios.get('/api/current_user');
@@ -169,3 +169,13 @@ export const saveSpot = (values, history) => async dispatch => {
  	dispatch({ type: FETCH_NOTIFICATIONS, payload: res.data })
  	
  }
+
+ export const fetchSpots = () => async dispatch => {
+ 	const res = await axios.get('/api/spots/fetchAll');
+
+ 	dispatch({ type: FETCH_SPOTS, payload: res.data })
+ 	
+ }
+
+
+

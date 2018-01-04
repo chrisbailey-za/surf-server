@@ -21,7 +21,7 @@ const tideCall = async () => {
 	const tideData = res.data.heights;
 	const tide = await new Tide({
 		tideTable: tideData,
-		date: tideData[0].dt
+		date: tideData[0].dt * 1000
 	})
 	tide.save()
 };

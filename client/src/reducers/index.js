@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import authReducer from './authReducer';
 import notificationReducer from './notificationReducer';
+import spotReducer from './spotReducer';
 import { reducer as reduxForm } from 'redux-form';
 
 export default combineReducers({
 	auth: authReducer,
 	form: reduxForm,
-	notifications: notificationReducer
+	notifications: notificationReducer,
+	spots: spotReducer
 });
