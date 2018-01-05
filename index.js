@@ -9,6 +9,7 @@ const tideCall = require('./services/tideCall');
 require('./models/User');
 require('./models/Spot');
 require('./models/Session');
+require("./models/ForecastHist");
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
