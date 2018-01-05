@@ -5,6 +5,8 @@ require("../models/Forecasttable");
 require("../models/ForecastHist");
 require("../models/Tidetable");
 
+mongoose.connect(keys.mongoURI);
+
 const Forecast = mongoose.model("forecasts");
 const ForecastHistory = mongoose.model("forecastHistory");
 const Tide = mongoose.model("tides");
@@ -21,7 +23,7 @@ const spots = [
 	{
 		name: "muizenberg",
 		msw: {
-			spot_id: 848,
+			spot_id: 847,
 			units: "eu",
 			fields: ["localTimestamp", "swell.*", "wind.*"]
 		}
@@ -29,7 +31,7 @@ const spots = [
 	{
 		name: "elands",
 		msw: {
-			spot_id: 848,
+			spot_id: 227,
 			units: "eu",
 			fields: ["localTimestamp", "swell.*", "wind.*"]
 		}
@@ -37,7 +39,7 @@ const spots = [
 	{
 		name: "kleinmond",
 		msw: {
-			spot_id: 848,
+			spot_id: 1284,
 			units: "eu",
 			fields: ["localTimestamp", "swell.*", "wind.*"]
 		}
@@ -45,19 +47,20 @@ const spots = [
 ];
 
 var mswCall = async () => {
-
-	for (var i = 0; i< spots.length; i++) {
-		var  grabFromMSW = async () => {
-			var condition = await Msw.forecast(spots[i].msw, (err, forecast) => {
-				transferObject(forecast);
+	spots.forEach(spot => {
+		var grabFromMSW = async () => {
+			var condition = await Msw.forecast(spot.msw, (err, forecast) => {
+				transferObject(forecast, spot.msw.spot_id);
 			});
 		};
 
-		const transferObject = data => {
+		grabFromMSW();
+
+		const transferObject = (data, spotID) => {
 			var forecast = data.map(elem => {
 				return {
 					dayTime: elem.localTimestamp,
-					location: spots[i].msw.spot_id,
+					location: spotID,
 					primarySwellSize: elem.swell.components.primary.height,
 					primarySwellDirection: elem.swell.components.primary.direction,
 					primarySwellPeriod: elem.swell.components.primary.period,
@@ -206,7 +209,7 @@ var mswCall = async () => {
 
 			addTide(forecast);
 		};
-	}
+	});
 
 	function addTide(condition) {
 		var date = new Date();
@@ -215,10 +218,11 @@ var mswCall = async () => {
 		var conditionArr = condition;
 		var resultData = [];
 
-		Tide.findOne({ "tideTable.dt": date }, { tideTable: 1 }).exec(async function(
-			err,
-			doc
-		) {
+		Tide.findOne(
+			{ "tideTable.dt": date },
+			{ tideTable: 1 }
+		).exec(async function(err, doc) {
+
 			try {
 				const tideArr = doc.tideTable.map(tide => {
 					return { [tide.dt]: tide.height + 0.18 };
@@ -262,7 +266,6 @@ var mswCall = async () => {
 							tide: lastForecast.tide
 						});
 						history.save();
-						console.log('condtion added');
 						doc.remove();
 					} catch (err) {
 						console.log("no history found");
@@ -278,8 +281,8 @@ var mswCall = async () => {
 				console.log("noope");
 			}
 		});
+
 	}
-	console.log("running")
-}
+};
 
 module.exports = mswCall();
