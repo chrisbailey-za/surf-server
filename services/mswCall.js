@@ -244,7 +244,7 @@ var mswCall = async () => {
 				}
 
 				Forecast.findOne(
-					{ "forecastTable.dayTime": date },
+					{ "forecastTable.dayTime": date, "forecastTable.location": condition[0].location},
 					"forecastTable.$.dayTime"
 				).exec(async function(err, doc) {
 					try {
