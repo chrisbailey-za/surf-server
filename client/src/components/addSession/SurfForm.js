@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { reduxForm, Field, change } from "redux-form";
 import $ from "jquery";
+import { withRouter } from 'react-router-dom';
 import RatingSlider from "../forms/RatingSlider";
 import TextInput from "../forms/TextInput";
 import SpotSelector from "../forms/SpotSelector";
@@ -18,7 +19,7 @@ class SurfForm extends Component {
   }
 
   dispatchSubmit(values, dispatch, history) {
-    actions.saveSession(values, this.props.history);
+    return dispatch(actions.saveSession(values, this.props.history));
 	}
 
 	getSpots(){
@@ -98,6 +99,6 @@ export default reduxForm({
 	validate,
 	form: "surfForm",
 	change: change
-})(SurfForm);
+})(withRouter(SurfForm));
 
 

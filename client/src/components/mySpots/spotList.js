@@ -1,32 +1,51 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchSpots } from '../../actions';
+import { fetchSpots, fetchSessions } from '../../actions';
+import { Rating } from 'material-ui-rating';
+import _ from 'lodash';
 
 class SpotList extends Component {
 
 	componentDidMount(){
 		this.props.fetchSpots();
+		this.props.fetchSessions();
+	}
+
+	countSessions(spotId){
+		return this.props.sessions.filter(({_spot, pseudo}) => _spot === spotId && pseudo === false).length;
+	}
+
+	averageSessions(spotId){
+		var sessions = this.props.sessions.filter(({_spot, pseudo}) => _spot === spotId && pseudo === false);
+		if(sessions.length){
+			console.log(sessions)	
+			return Math.round(_.meanBy(sessions, function(o) { return o.condition.rating; }));
+		} else {
+			return 'n/a';
+		}
 	}
 
 	renderSpots(){
-		return this.props.spots.map(({ spotName, quality, notification }) => {
+		return this.props.spots.map(({ spotName, quality, notification, _id }) => {
 			return(
-					<div className="row valign-wrapper card" style={{paddingTop:'1%', paddingBottom:'1%'}}>					
+					<div className="row valign-wrapper card grey lighten-3" style={{paddingTop:'1%', paddingBottom:'1%'}} key={spotName}>					
 				  	<div className="col s2 ">
 				  		<div className="flow-text center">{spotName}</div>
 				  	</div>
 				  	<div className="col s2 ">
-				  		<div className="flow-text center">{quality}</div>
+				  		<div className="flow-text center"><Rating value={quality} itemStyle={{width: 20, height:20, padding: 0}} /></div>
 				  	</div>
 				  	<div className="col s2 ">
-				  		<div className="flow-text center">NUMBER</div>
+				  		<div className="flow-text center">{this.countSessions(_id)}</div>
+				  	</div>
+				  	<div className="col s2 " style={{backgroundColor: 'rgba(255, 152, 0, 0.'+this.averageSessions(_id)+')'}}>
+				  		<div className="flow-text center">{this.averageSessions(_id)}</div>
 				  	</div>
 				  	<div className="col s2 ">
-				  		<div className="flow-text center">NUMBER</div>
-				  	</div>
-				  	<div className="col s2 ">
-				  		<div className="flow-text center">{notification?'On':'Off'}</div>
+				  		<Link to="/notifications" style={{width: '100%', color:'#00838f'}}>
+				  			<div className="flow-text center">{notification?'On':'Off'}</div>
+				  		</Link>
 				  	</div>
 				  	<div className="col s2 ">
 				  		<div className="flow-text center"><i className="material-icons cyan-text text-darken-3 center">settings</i></div>
@@ -50,7 +69,7 @@ class SpotList extends Component {
 							<div className="flow-text center">No. of Sessions</div>
 						</div>
 						<div className="col s2 ">
-							<div className="flow-text center">Average Surf</div>
+							<div className="flow-text center">Average Rating</div>
 						</div>
 						<div className="col s2 ">
 							<div className="flow-text center">Notifications</div>
@@ -71,10 +90,10 @@ class SpotList extends Component {
 	}
 }
 
-function mapStateToProps({ spots }){
-	return { spots };
+function mapStateToProps({ spots, sessions }){
+	return { spots, sessions };
 }
 
-export default connect( mapStateToProps, {fetchSpots} )(SpotList);
+export default connect( mapStateToProps, {fetchSpots, fetchSessions} )(SpotList);
 
 

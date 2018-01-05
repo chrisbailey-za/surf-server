@@ -25,4 +25,11 @@ module.exports = app => {
 	}
 
 	});
+
+	app.get('/api/sessions/fetchAll', requireLogin, async (req, res) => {
+		const sessions = await Session.find({ _user: req.user.id })
+			.select()
+
+		res.send(sessions);
+	})
 };
