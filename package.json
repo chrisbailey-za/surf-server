@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node index.js",
+    "msw": "node ./services/mswCall.js",
     "server": "nodemon index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",

@@ -19,7 +19,6 @@ class SpotList extends Component {
 	averageSessions(spotId){
 		var sessions = this.props.sessions.filter(({_spot, pseudo}) => _spot === spotId && pseudo === false);
 		if(sessions.length){
-			console.log(sessions)	
 			return Math.round(_.meanBy(sessions, function(o) { return o.condition.rating; }));
 		} else {
 			return 'n/a';
