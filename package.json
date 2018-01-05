@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node index.js",
     "msw": "node -e \"require('./services/mswCall.js')\"",
+    "tide": "node -e \"require('./services/tideCall.js')\"",
     "server": "nodemon index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",

@@ -5,8 +5,6 @@ const passport = require('passport');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
-const CronJob = require('cron').CronJob;
-const mswCall = require('./services/mswCall');
 const tideCall = require('./services/tideCall');
 require('./models/User');
 require('./models/Spot');
