@@ -7,4 +7,4 @@ const forecasttableSchema = new Schema ({
 	date: Date
 });
 
-mongoose.model("forecasts", forecasttableSchema);
+mongoose.model("forecast", forecasttableSchema);

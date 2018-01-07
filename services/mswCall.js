@@ -105,7 +105,7 @@ var mswCall = async () => {
 
 			let newArr = Array.from(Array(118), (_, x) => x);
 
-			for (hour in newArr) {
+			newArr.forEach(hour => {
 				if ((hour + 1) % 3 === 0) {
 					const time = epochTime(forecast[0].dayTime, hour);
 					var min = forecast.find(x => {
@@ -205,7 +205,19 @@ var mswCall = async () => {
 
 					forecast.push(newForecast);
 				}
+			})
+
+			//sort forecast to allow for proper use
+
+			function compare(a,b) {
+			  if (a.dayTime < b.dayTime)
+			     return -1;
+			  if (a.dayTime > b.dayTime)
+			    return 1;
+			  return 0;
 			}
+
+			forecast.sort(compare);
 
 			addTide(forecast);
 		};
@@ -242,12 +254,14 @@ var mswCall = async () => {
 					withTide.tide = resultObject[withTide.dayTime];
 					resultData.push(withTide);
 				}
+				
 
 				Forecast.findOne(
-					{ "forecastTable.dayTime": date, "forecastTable.location": condition[0].location},
-					"forecastTable.$.dayTime"
+					{ 'forecastTable.dayTime': date, 'forecastTable.location': condition[0].location},
+					{forecastTable:{$elemMatch:{dayTime: {$eq: date}}}}
 				).exec(async function(err, doc) {
 					try {
+
 						const lastForecast = await doc.forecastTable[0];
 						const history = await new ForecastHistory({
 							location: lastForecast.lcation,

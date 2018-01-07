@@ -5,11 +5,11 @@ const passport = require('passport');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
-const tideCall = require('./services/tideCall');
 require('./models/User');
 require('./models/Spot');
 require('./models/Session');
 require("./models/ForecastHist");
+require("./models/ForecastTable");
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
@@ -34,6 +34,7 @@ require('./routes/spotRoutes')(app);
 require('./routes/sessionRoutes')(app);
 require('./routes/locationRoutes')(app);
 require('./routes/conditionRoutes')(app);
+require('./routes/forecastRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
 	// Express will serve production assests like main.js file

@@ -3,7 +3,8 @@ import {
 	FETCH_USER,
 	FETCH_NOTIFICATIONS,
 	FETCH_SPOTS,
-	FETCH_SESSIONS
+	FETCH_SESSIONS,
+	FETCH_FORECAST
 } from "./types";
 
 export const fetchUser = () => async dispatch => {
@@ -193,4 +194,10 @@ export const fetchSessions = () => async dispatch => {
 	const res = await axios.get("/api/sessions/fetchAll");
 
 	dispatch({ type: FETCH_SESSIONS, payload: res.data });
+};
+
+export const fetchForecast = (location) => async dispatch => {
+	const res = await axios.get("/api/forecast?spot=" + location);
+
+	dispatch({ type: FETCH_FORECAST, payload: res.data });
 };

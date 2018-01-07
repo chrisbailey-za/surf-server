@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Header from './header/Header';
 import Landing from './Landing';
-import Dashboard from './Dashboard';
+import Dashboard from './dashboard/Dashboard';
 import SurfNew from './addSession/SurfNew';
 import SpotNew from './addSpot/SpotNew';
 import NotificationPage from './notifications/NotificationPage';
