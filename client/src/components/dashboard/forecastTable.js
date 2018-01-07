@@ -83,7 +83,7 @@ class ForecastTable extends Component {
 
 		return initialArr.map(({ dayTime, primarySwellSize, primarySwellDirection, primarySwellPeriod, secondarySwellSize, secondarySwellDirection, secondarySwellPeriod, windSpeed, windDirection, tide}) => {
 			return(
-					<div className='col' key={dayTime} style={{textAlign:'center'}}>
+					<div className='col' key={dayTime} style={{textAlign:'center', cursor:'move'}}>
 							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
 					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{this.getWeekday(new Date(dayTime*1000).getDay())}</div>
 					  	</div>
@@ -123,13 +123,13 @@ class ForecastTable extends Component {
 				<div className="row">
 					<div className="col s4">
 						<div className="row" style={{margin:'0px'}}>				
-							Show Every {this.state.showEvery} Hours
+							Hour Interval
 						</div>
 						<div className="row">		
-							<a className={this.state.showEvery===1?"btn-flat white-text cyan darken-2":"btn-flat white-text grey lighten-1"} onClick={() => this.setEvery(1)}>1</a>
-							<a className={this.state.showEvery===2?"btn-flat white-text cyan darken-2":"btn-flat white-text grey lighten-1"} onClick={() => this.setEvery(2)}>2</a>
-							<a className={this.state.showEvery===3?"btn-flat white-text cyan darken-2":"btn-flat white-text grey lighten-1"} onClick={() => this.setEvery(3)}>3</a>
-							<a className={this.state.showEvery===6?"btn-flat white-text cyan darken-2":"btn-flat white-text grey lighten-1"} onClick={() => this.setEvery(6)}>6</a>
+							<a className={this.state.showEvery===1?"btn-flat white-text cyan darken-2":"btn-flat white-text grey lighten-1"} style={{padding:'0 1.5rem'}} onClick={() => this.setEvery(1)}>1</a>
+							<a className={this.state.showEvery===2?"btn-flat white-text cyan darken-2":"btn-flat white-text grey lighten-1"} style={{padding:'0 1.5rem'}} onClick={() => this.setEvery(2)}>2</a>
+							<a className={this.state.showEvery===3?"btn-flat white-text cyan darken-2":"btn-flat white-text grey lighten-1"} style={{padding:'0 1.5rem'}} onClick={() => this.setEvery(3)}>3</a>
+							<a className={this.state.showEvery===6?"btn-flat white-text cyan darken-2":"btn-flat white-text grey lighten-1"} style={{padding:'0 1.5rem'}} onClick={() => this.setEvery(6)}>6</a>
 						</div>
 					</div>
 					<div className="col s4">
@@ -141,8 +141,8 @@ class ForecastTable extends Component {
 						<Toggle onToggle={( blank, val) => this.toggleSecSwell(val)} thumbSwitchedStyle={{backgroundColor:'#0097a7'}}/>
 					</div>
 				</div>
-				<div className="row" style={{overflowX:'scroll'}}>
-					<div className="col s2 grey darken-1 white-text" style={{width:'10rem', marginBottom:'40px', marginTop:'0.5rem', position:'absolute', border:'darkgrey', borderStyle: 'solid', borderWidth:'1px'}}>
+				<div className="row" style={{overflowX:'scroll', position:'absolute', left:'0'}}>
+					<div className="col grey darken-1 white-text hide-on-small-only" style={{width:'18vw', fontSize:'15px', margin:'0.5rem 0 40px 10px', border:'darkgrey', borderStyle: 'solid', borderWidth:'1px'}}>
 					  	<div className="row valign-wrapper" style={{marginBottom:'0px', padding: '4px 0 1px 0'}}>
 					  		<div className="col s12">Weekday</div>
 					  	</div>
@@ -172,7 +172,7 @@ class ForecastTable extends Component {
 								<div className="col s12">Tide</div>				  	
 							</div>
 					</div>
-					<div className="col s10" style={{paddingBottom:'1%', marginTop: '0.5rem', marginBottom:'1rem', marginLeft:'10rem',  width:'auto', overflowX:'scroll', display:'flex', fontSize:'10px'}}>
+					<div className="col" style={window.innerWidth>600?{width:'80vw', marginTop: '0.5rem', marginBottom:'1rem', overflowX:'scroll', display:'flex', fontSize:'10px'}:{width:'98vw', paddingTop:'1%', margin: '0.5rem 1vw', marginBottom:'1rem', overflowX:'scroll', display:'flex', fontSize:'10px'}}>
 						{this.renderForecast()}
 					</div>
 				</div>
