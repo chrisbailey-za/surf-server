@@ -23,7 +23,7 @@ const tideCall = async () => {
 	const tideData = res.data.heights;
 
 	Tide.findOne(
-				{ "date": date - 3600000 }
+				{ "date": now - 3600000 }
 			).exec(async function(err, doc) {
 				doc.remove()
 			});

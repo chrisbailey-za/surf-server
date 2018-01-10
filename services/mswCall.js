@@ -7,7 +7,7 @@ require("../models/Tidetable");
 
 mongoose.connect(keys.mongoURI);
 
-const Forecast = mongoose.model("forecasts");
+const Forecast = mongoose.model("forecast");
 const ForecastHistory = mongoose.model("forecastHistory");
 const Tide = mongoose.model("tides");
 
@@ -103,6 +103,53 @@ var mswCall = async () => {
 				}
 			}
 
+			function directionCheck(min, max, first, second){
+				if(min - max > 180 || min - max < -180){
+					var deg = 0
+					if(min >180){
+						deg = (min - 360) * first + max * second;
+						if(deg < 0){
+							deg = deg + 360;
+						}
+						return deg
+					}else if(max >180){
+						deg = min * first + (max - 360)* second;
+						if(deg < 0){
+							deg = deg + 360;
+						}
+						return deg
+					}
+				}
+				return min * first + max * second;
+			}
+
+			function secondaryDirectionCheck(min, max, first, second){
+				if (min && max) {
+					if(min === 0 || max === 0){
+						if(min === 0 && max !== 0){
+							if(max < 180){
+								return min * first + max * second;
+							}else{
+								return 360 * first + max * second;
+							};
+						}else if(min === 0 && max !== 0){
+							if(min < 180){
+								return min * first + max * second;
+							}else{
+								return min * first + 360 * second;
+							};
+						}
+					}
+					return min * first + max * second;
+				}else if (min && !max) {
+					return min;
+				} else if (!min && max) {
+					return max;
+				} else {
+					return null;
+				}
+			}
+
 			let newArr = Array.from(Array(118), (_, x) => x);
 
 			newArr.forEach(hour => {
@@ -121,7 +168,7 @@ var mswCall = async () => {
 						primarySwellSize:
 							min.primarySwellSize * 0.7 + max.primarySwellSize * 0.3,
 						primarySwellDirection:
-							min.primarySwellDirection * 0.7 + max.primarySwellDirection * 0.3,
+							directionCheck(min.primarySwellDirection, max.primarySwellDirection, 0.7, 0.3),
 						primarySwellPeriod:
 							min.primarySwellPeriod * 0.7 + max.primarySwellPeriod * 0.3,
 						primarySwellEnergy:
@@ -132,7 +179,7 @@ var mswCall = async () => {
 							0.7,
 							0.3
 						),
-						secondarySwellDirection: secondaryCheck(
+						secondarySwellDirection: secondaryDirectionCheck(
 							min.secondarySwellDirection,
 							max.secondarySwellDirection,
 							0.7,
@@ -151,7 +198,7 @@ var mswCall = async () => {
 							0.3
 						),
 						windSpeed: min.windSpeed * 0.7 + max.windSpeed * 0.3,
-						windDirection: min.windDirection * 0.7 + max.windDirection * 0.3
+						windDirection: directionCheck(min.windDirection, max.windDirection, 0.7, 0.3)
 					};
 
 					forecast.push(newForecast);
@@ -170,7 +217,7 @@ var mswCall = async () => {
 						primarySwellSize:
 							min.primarySwellSize * 0.3 + max.primarySwellSize * 0.7,
 						primarySwellDirection:
-							min.primarySwellDirection * 0.3 + max.primarySwellDirection * 0.7,
+							directionCheck(min.primarySwellDirection, max.primarySwellDirection, 0.3, 0.7),
 						primarySwellPeriod:
 							min.primarySwellPeriod * 0.3 + max.primarySwellPeriod * 0.7,
 						primarySwellEnergy:
@@ -181,7 +228,7 @@ var mswCall = async () => {
 							0.3,
 							0.7
 						),
-						secondarySwellDirection: secondaryCheck(
+						secondarySwellDirection: secondaryDirectionCheck(
 							min.secondarySwellDirection,
 							max.secondarySwellDirection,
 							0.3,
@@ -200,7 +247,7 @@ var mswCall = async () => {
 							0.7
 						),
 						windSpeed: min.windSpeed * 0.3 + max.windSpeed * 0.7,
-						windDirection: min.windDirection * 0.3 + max.windDirection * 0.7
+						windDirection: directionCheck(min.windDirection, max.windDirection, 0.3, 0.7)
 					};
 
 					forecast.push(newForecast);

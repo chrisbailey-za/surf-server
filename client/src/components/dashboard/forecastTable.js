@@ -1,16 +1,24 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchSpots, fetchForecast } from '../../actions';
 import { Toggle } from "material-ui";
+import ArrowComp from './ArrowComp';
+import ForecastSelector from './ForecastSelector';
 
 class ForecastTable extends Component {
 
 	state = {};
 
+	constructor(props){
+    super(props);
+    this.updateFunc = this.updateFunc.bind(this);
+  }
+
 	componentDidMount(){
 		this.props.fetchSpots();
 		this.props.fetchForecast('848');
-		this.setState({showEvery:3, hideNights:true, hideSecondary: true})
+		this.setState({showEvery:2, hideNights:true, hideSecondary: true, location:848})
 	}
 
 	getWeekday(n){
@@ -24,6 +32,11 @@ class ForecastTable extends Component {
 		}else{
 			return n+'h'
 		}
+	}
+
+	updateFunc(payload){
+		this.setState({location:payload});
+		this.props.fetchForecast(payload);
 	}
 
 	toggleNights(val){
@@ -46,6 +59,27 @@ class ForecastTable extends Component {
 		return newArr;
 	}
 
+	percentageToHsl(percentage, hue0, hue1) {
+    var hue = (percentage * (hue1 - hue0)) + hue0;
+    var perc = (1 - percentage)*50 + 50;
+    return 'hsl(' + hue + ', 100%, ' + perc + '%)';
+	}
+
+	percentageToHslFixed(percentage, hue0, hue1) {
+    var hue = (percentage * (hue1 - hue0)) + hue0;
+    return 'hsl(' + hue + ', 100%, 80%)';
+	}
+
+	percentageToHslWind(percentage, hue0, hue1) {
+		var hue = ''
+		if (percentage > 0.666666){
+    	hue = (percentage * (0 - 270)) + 270;
+    }else{
+    	hue = (percentage * (0 - 180)) + 180;
+    }
+    return 'hsl(' + hue + ', 100%, 80%)';
+	}	
+
 	renderSecondaryList(){
 		return(
 			<div>
@@ -65,14 +99,14 @@ class ForecastTable extends Component {
 	renderSecondary(secondarySize, secondaryPeriod, secondaryDirection){
 		return(
 			<div>
-				<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
-					<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{secondarySize}</div>
+				<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:this.percentageToHsl(secondarySize/10, 210, 250)}}>
+					<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{secondarySize.toFixed(1)}</div>
+				</div>
+				<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:this.percentageToHsl(secondaryPeriod/20, 60, 0)}}>
+					<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{secondaryPeriod.toFixed(0)}</div>
 				</div>
 				<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
-					<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{secondaryPeriod}</div>
-				</div>
-				<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
-					<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{secondaryDirection}</div>
+					<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}><ArrowComp value={secondaryDirection} /></div>
 				</div>
 			</div>
 		)
@@ -84,32 +118,32 @@ class ForecastTable extends Component {
 		return initialArr.map(({ dayTime, primarySwellSize, primarySwellDirection, primarySwellPeriod, secondarySwellSize, secondarySwellDirection, secondarySwellPeriod, windSpeed, windDirection, tide}) => {
 			return(
 					<div className='col' key={dayTime} style={{textAlign:'center', cursor:'move'}}>
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
+							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'lightgrey'}}>
 					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{this.getWeekday(new Date(dayTime*1000).getDay())}</div>
 					  	</div>
-					  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
+					  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'lightgrey'}}>
 					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{new Date(dayTime*1000).getDate()}</div>
 					  	</div>
-					  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
+					  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'lightgrey'}}>
 					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{this.makeHour(new Date(dayTime*1000).getHours())}</div>
 					  	</div>
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
+							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:this.percentageToHsl(primarySwellSize/10, 210, 250)}}>
 					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{primarySwellSize.toFixed(1)}</div>
 					  	</div>
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
+							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:this.percentageToHsl(primarySwellPeriod/20, 0, 60)}}>
 								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{primarySwellPeriod.toFixed(0)}</div>				  	
 							</div>
 							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
-								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{primarySwellDirection}</div>
+								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}><ArrowComp value={primarySwellDirection} /></div>
 							</div>
 							{!this.state.hideSecondary?this.renderSecondary(secondarySwellSize, secondarySwellPeriod, secondarySwellDirection):null}
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
+							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:this.percentageToHslWind(windSpeed/70, 180, 0)}}>
 								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{windSpeed.toFixed(0)}</div>
 							</div>
 							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
-								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{windDirection}</div>
+								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}><ArrowComp value={windDirection} /></div>
 							</div>
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
+							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:this.percentageToHsl(tide/2.5, 280, 240)}}>
 								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{tide.toFixed(2)}</div>			  	
 							</div>
 					</div>
@@ -120,6 +154,7 @@ class ForecastTable extends Component {
 	render() {
 		return (
 			<div style={{paddingTop: '3%'}}>
+				<ForecastSelector label="Forecast For" updateFunc={this.updateFunc} location={this.state.location}/>
 				<div className="row">
 					<div className="col s4">
 						<div className="row" style={{margin:'0px'}}>				
@@ -175,6 +210,11 @@ class ForecastTable extends Component {
 					<div className="col" style={window.innerWidth>600?{width:'80vw', marginTop: '0.5rem', marginBottom:'1rem', overflowX:'scroll', display:'flex', fontSize:'10px'}:{width:'98vw', paddingTop:'1%', margin: '0.5rem 1vw', marginBottom:'1rem', overflowX:'scroll', display:'flex', fontSize:'10px'}}>
 						{this.renderForecast()}
 					</div>
+					<div className="fixed-action-btn">
+				    <Link to="/session/add" className="btn-floating btn-large orange">
+				      <i className="large material-icons">add</i>
+				    </Link>
+			    </div>
 				</div>
 			</div>
 		);
