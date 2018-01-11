@@ -154,6 +154,7 @@ class ForecastTable extends Component {
 	render() {
 		return (
 			<div style={{paddingTop: '3%'}}>
+				<h1>Best Spots</h1>
 				<ForecastSelector label="Forecast For" updateFunc={this.updateFunc} location={this.state.location}/>
 				<div className="row">
 					<div className="col s4">
