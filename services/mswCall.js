@@ -1,7 +1,7 @@
 const keys = require("../config/keys");
 var Msw = require("magicseaweed")([keys.mswKey]);
 const mongoose = require("mongoose");
-require("../models/Forecasttable");
+require("../models/ForecastTable");
 require("../models/ForecastHist");
 require("../models/Tidetable");
 
