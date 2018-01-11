@@ -8,8 +8,8 @@ const keys = require('./config/keys');
 require('./models/User');
 require('./models/Spot');
 require('./models/Session');
-require("./models/ForecastHist");
-require("./models/ForecastTable");
+require('./models/ForecastHist');
+require('./models/ForecastTable');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI);

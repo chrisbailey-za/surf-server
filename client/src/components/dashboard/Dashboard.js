@@ -15,11 +15,7 @@ class Dashboard extends Component {
 			);
 		default:
 		return(
-			<h1>Best Spots</h1>
-			//<ForecastTable />
-			
-
-
+				<ForecastTable />
 			);
 		}
 	}
