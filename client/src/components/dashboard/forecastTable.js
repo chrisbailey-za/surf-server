@@ -209,7 +209,7 @@ class ForecastTable extends Component {
 							</div>
 					</div>
 					<div className="col" style={window.innerWidth>600?{width:'80vw', marginTop: '0.5rem', marginBottom:'1rem', overflowX:'scroll', display:'flex', fontSize:'10px'}:{width:'98vw', paddingTop:'1%', margin: '0.5rem 1vw', marginBottom:'1rem', overflowX:'scroll', display:'flex', fontSize:'10px'}}>
-
+						{this.renderForecast()}
 					</div>
 					<div className="fixed-action-btn">
 				    <Link to="/session/add" className="btn-floating btn-large orange">
