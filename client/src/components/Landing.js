@@ -3,7 +3,7 @@ import React from 'react';
 const Landing = () => {
 
 	return(
-		<div style={{textAlign: 'center'}}>
+		<div style={{textAlign: 'center', overflow:'hidden'}}>
 				<h1 style={{paddingTop: '1%'}}>
 					SurfApp
 				</h1>
