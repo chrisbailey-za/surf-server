@@ -25,14 +25,16 @@ class NotificationList extends Component {
 				<div className="row valign-wrapper card grey darken-1 white-text" style={{paddingTop:'1%', paddingBottom:'1%', marginBottom:'40px'}}>
 					<div className="col s6 m4 valign-wrapper">
 				  	<div className="col s6 ">
-				  		<div className="flow-text">Spot Name</div>
-				  	</div>
+				  		<div className="flow-text show-on-small-only hide-on-med-and-up">Spot</div>
+							<div className="flow-text hide-on-small-only">Spot Name</div>
+						</div>
 				  	<div className="col s6 valign-wrapper">
 							<div className="flow-text">On/Off</div>				  	
 						</div>
 					</div>
 					<div className="col s6 m8 ">
-						<div className="flow-text">How good does it have to get before we let you know?</div>
+						<div className="flow-text show-on-small-only hide-on-med-and-up">Only when?</div>
+						<div className="flow-text hide-on-small-only">How good does it have to get before we let you know?</div>
 					</div>
 				</div>
 				<form onSubmit={this.props.handleSubmit(values => console.log(values))}>

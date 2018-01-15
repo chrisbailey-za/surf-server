@@ -29,10 +29,10 @@ class SpotList extends Component {
 		return this.props.spots.map(({ spotName, quality, notification, _id }) => {
 			return(
 					<div className="row valign-wrapper card grey lighten-3" style={{paddingTop:'1%', paddingBottom:'1%'}} key={spotName}>					
-				  	<div className="col s2 ">
+				  	<div className="col s4 m2 ">
 				  		<div className="flow-text center">{spotName}</div>
 				  	</div>
-				  	<div className="col s2 ">
+				  	<div className="col m2 hide-on-small-only">
 				  		<div className="flow-text center"><Rating value={quality} itemStyle={{width: 20, height:20, padding: 0}} /></div>
 				  	</div>
 				  	<div className="col s2 ">
@@ -58,20 +58,24 @@ class SpotList extends Component {
 		return (
 			<div style={{paddingTop: '3%'}}>
 				<div className="row valign-wrapper card grey darken-1 white-text" style={{paddingTop:'1%', paddingBottom:'1%', marginBottom:'40px'}}>
-				  	<div className="col s2 ">
-				  		<div className="flow-text center">Spot Name</div>
+				  	<div className="col s4 m2 ">
+				  		<div className="flow-text show-on-small-only hide-on-med-and-up">Spot</div>
+							<div className="flow-text hide-on-small-only">Spot Name</div>
 				  	</div>
-				  	<div className="col s2 ">
+				  	<div className="col m2 hide-on-small-only">
 							<div className="flow-text center">Quality</div>				  	
 						</div>
 						<div className="col s2 ">
-							<div className="flow-text center">No. of Sessions</div>
+							<div className="flow-text show-on-small-only hide-on-med-and-up">Surfs</div>
+							<div className="flow-text hide-on-small-only">No. of Session</div>
 						</div>
 						<div className="col s2 ">
-							<div className="flow-text center">Average Rating</div>
+							<div className="flow-text show-on-small-only hide-on-med-and-up">Ave</div>
+							<div className="flow-text hide-on-small-only">Average Rating</div>
 						</div>
 						<div className="col s2 ">
-							<div className="flow-text center">Notifications</div>
+							<div className="flow-text show-on-small-only hide-on-med-and-up"><i className="material-icons white-text" style={{verticalAlign:'text-bottom', paddingLeft:'5px'}}>notifications</i></div>
+							<div className="flow-text hide-on-small-only">Notifications</div>
 						</div>
 						<div className="col s2 ">
 							<div className="flow-text center">Edit</div>				  	

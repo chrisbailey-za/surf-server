@@ -245,7 +245,7 @@ class ForecastTable extends Component {
 				    </Link>
 			    </div>
 				</div>
-					<div style={{marginTop:'330px', position:'relative'}}>
+					<div style={this.state.hideSecondary?{marginTop:'330px', position:'relative'}:{marginTop:'430px', position:'relative'}}>
 					</div>
 					<div className="cyan darken-2" style={{height:'50px', position:'relative'}}>
 						<span className="white-text">footer content</span>
