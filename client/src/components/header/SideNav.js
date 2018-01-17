@@ -12,13 +12,10 @@ class SideNav extends Component {
 		}
 
 		return(
-		  <ul onClick={this.props.changeVis} id="slide-out" className="side-nav grey lighten-3" style={this.props.vis}>
+		  <ul onClick={this.props.handleClose} className="side-nav grey lighten-3" style={{transform: 'none'}}>
 			  <li>
 			    <div className="background cyan darken-3 user-view">
 			    <div style={{display: 'block'}}>
-						<a className="right">
-								<i className="material-icons right" style={{margin: 0}}>close</i>
-						</a>
 						</div>
 						<div className='email'>
 							<img src='/img/Logo.png' alt="" style={imageStyle}></img>
@@ -27,7 +24,7 @@ class SideNav extends Component {
 			    </div>
 		    </li>
 		    <li><div className="divider no-margin"></div></li>
-		    <li><Link to="/home">Home<i className="material-icons cyan-text text-darken-3 right">home</i></Link></li>
+		    <li><Link to="/home" >Home<i className="material-icons cyan-text text-darken-3 right">home</i></Link></li>
 		    <li><Link to="/session/add">Add a Session<i className="material-icons cyan-text text-darken-3 right">add_circle</i></Link></li>
 		    <li><Link to="/session/logs">My Surf Logs<i className="material-icons cyan-text text-darken-3 right">equalizer</i></Link></li>
 		    <li><Link to="/spot/add">Add a Spot<i className="material-icons cyan-text text-darken-3 right">place</i></Link></li>

@@ -119,7 +119,6 @@ export const saveSession = (values, history) => async dispatch => {
 	}
 
 	var dateStamp = values.date.getTime();
-	dateStamp -= dateStamp % (24 * 60 * 60 * 1000); //subtract amount of time since midnight
 	var epochDate = dateStamp / 1000 + Math.round(hour) * 3600;
 
 	const location = await axios.get("/api/location?spot=" + values.spot);

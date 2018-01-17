@@ -11,6 +11,7 @@ require('./models/Session');
 require('./models/ForecastHist');
 require('./models/ForecastTable');
 require('./services/passport');
+const ratingFunc = require('./services/ratingCalculation');
 
 mongoose.connect(keys.mongoURI);
 
@@ -46,6 +47,8 @@ if (process.env.NODE_ENV === 'production') {
 		res.sendFile(path.resolve(__dirname,'client', 'build', 'index.html'));
 	});
 }
+
+ratingFunc("5a5e36ce04471c8dcd980249")
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);

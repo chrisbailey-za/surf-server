@@ -135,3 +135,7 @@ select.select{
 .mobilePicker{
   width: 30vw;
 }
+
+.picker.picker-3d{
+   z-index: 10; 
+}

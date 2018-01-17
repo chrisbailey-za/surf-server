@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import ForecastTable from './forecastTable';
+import ForecastTable from './ForecastTable';
 
 class Dashboard extends Component {
 
