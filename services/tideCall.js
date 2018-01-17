@@ -22,8 +22,7 @@ const tideCall = async () => {
 	const res = await axios.get(options);
 	const tideData = res.data.heights;
 
-	Tide.findOne(
-				{ "date": now - 3600000 }
+	Tide.findOne({}, {}, { sort: { 'created_at' : -1 } }
 			).exec(async function(err, doc) {
 				doc.remove()
 			});

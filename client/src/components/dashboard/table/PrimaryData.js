@@ -75,7 +75,7 @@ export default ({ forecast, showSecondary, hideNights, showEvery }) => {
 								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}><ArrowComp value={windDirection} /></div>
 							</div>
 							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:percentageToHsl(tide/2.5, 280, 240)}}>
-								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{tide.toFixed(2)}</div>			  	
+								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{tide?tide.toFixed(2):null}</div>			  	
 							</div>
 					</div>
 			)
