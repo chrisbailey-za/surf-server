@@ -11,7 +11,7 @@ require('./models/Session');
 require('./models/ForecastHist');
 require('./models/ForecastTable');
 require('./services/passport');
-const ratingFunc = require('./services/ratingCalculation');
+//const ratingFunc = require('./services/ratingCalculation');
 
 mongoose.connect(keys.mongoURI);
 
@@ -36,6 +36,7 @@ require('./routes/sessionRoutes')(app);
 require('./routes/locationRoutes')(app);
 require('./routes/conditionRoutes')(app);
 require('./routes/forecastRoutes')(app);
+require('./routes/modelCreation')(app);
 
 if (process.env.NODE_ENV === 'production') {
 	// Express will serve production assests like main.js file
@@ -48,7 +49,7 @@ if (process.env.NODE_ENV === 'production') {
 	});
 }
 
-ratingFunc("5a603dede53b7a02afb7d995")
+//ratingFunc("5a603dede53b7a02afb7d995")
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);

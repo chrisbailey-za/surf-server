@@ -127,6 +127,7 @@ export const saveSpot = (values, history) => async dispatch => {
 		state: { spot: values.spotName }
 	});
 
+	axios.post("/api/ratingmodel/update", { spotID: res.data.id })
 	dispatch({ type: FETCH_USER, payload: res.data.user });
 };
 
@@ -192,6 +193,7 @@ export const saveSession = (values, history) => async dispatch => {
 	}
 
 	await history.push({ pathname: "/home" });
+	axios.post("/api/ratingmodel/update", { spotID: values.spot })
 
 	dispatch({ type: FETCH_USER, payload: res.data });
 };

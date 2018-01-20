@@ -1,6 +1,7 @@
 const keys = require("../config/keys");
 var Msw = require("magicseaweed")([keys.mswKey]);
 const mongoose = require("mongoose");
+const ratingCalculation = require('./ratingCalculation')
 require("../models/ForecastTable");
 require("../models/ForecastHist");
 require("../models/Tidetable");
@@ -311,7 +312,6 @@ var mswCall = async () => {
 
 						const lastForecast = await doc.forecastTable[0];
 						const history = await new ForecastHistory({
-							location: lastForecast.lcation,
 							dayTime: lastForecast.dayTime,
 							location: lastForecast.location,
 							primarySwellSize: lastForecast.primarySwellSize,
@@ -338,6 +338,8 @@ var mswCall = async () => {
 					date: resultData[0].localTimestamp
 				});
 				forecast.save();
+				ratingCalculation(resultData);
+
 			} catch (err) {
 				console.log("noope");
 			}
