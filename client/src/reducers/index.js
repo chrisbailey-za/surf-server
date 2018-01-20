@@ -4,6 +4,7 @@ import notificationReducer from './notificationReducer';
 import spotReducer from './spotReducer';
 import sessionReducer from './sessionReducer';
 import forecastReducer from './forecastReducer';
+import loadingReducer from './loadingReducer';
 import { reducer as reduxForm } from 'redux-form';
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
 	notifications: notificationReducer,
 	spots: spotReducer,
 	sessions: sessionReducer,
-	forecast: forecastReducer
+	forecast: forecastReducer,
+	loading: loadingReducer
 });

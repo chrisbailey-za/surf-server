@@ -4,7 +4,8 @@ import {
 	FETCH_NOTIFICATIONS,
 	FETCH_SPOTS,
 	FETCH_SESSIONS,
-	FETCH_FORECAST
+	FETCH_FORECAST,
+	LOADING_STATE
 } from "./types";
 
 export const fetchUser = () => async dispatch => {
@@ -23,7 +24,7 @@ export const saveSpot = (values, history) => async dispatch => {
 			swellSize: values.swellSize[0],
 			swellDirection: values.swellDir,
 			swellPeriod: 14,
-			swellEnergy: null,
+			swellEnergy: values.swellSize[0]*values.swellSize[0]*14,
 			windSpeed: values.windSpeed[0],
 			windDirection: values.windDir,
 			tide: values.tide[0]
@@ -34,7 +35,7 @@ export const saveSpot = (values, history) => async dispatch => {
 			swellSize: values.swellSize[1],
 			swellDirection: values.swellDir,
 			swellPeriod: 14,
-			swellEnergy: null,
+			swellEnergy: values.swellSize[1]*values.swellSize[1]*14,
 			windSpeed: values.windSpeed[1],
 			windDirection: values.windDir,
 			tide: values.tide[1]
@@ -49,11 +50,11 @@ export const saveSpot = (values, history) => async dispatch => {
 		condition: {
 			rating: 75,
 			swellSize: values.swellSize[0],
-			swellDirection: values.swellDir,
+			swellDirection: values.swellDir < 30 ? values.swellDir + 330 : values.swellDir - 30,
 			swellPeriod: 14,
 			swellEnergy: values.swellSize[0] * values.swellSize[0] * 14,
 			windSpeed: values.windSpeed[0],
-			windDirection: values.windDir - 30,
+			windDirection: values.windDir < 30 ? values.windDir + 330 : values.windDir - 30,
 			tide: values.tide[0]
 		},
 		pseudo: true,
@@ -66,11 +67,11 @@ export const saveSpot = (values, history) => async dispatch => {
 		condition: {
 			rating: 75,
 			swellSize: values.swellSize[1],
-			swellDirection: values.swellDir,
+			swellDirection: values.swellDir > 330 ? values.swellDir - 330 : values.swellDir + 30,
 			swellPeriod: 14,
 			swellEnergy: values.swellSize[1] * values.swellSize[1] * 14,
 			windSpeed: values.windSpeed[1],
-			windDirection: values.windDir + 30,
+			windDirection: values.windDir > 330 ? values.windDir - 330 : values.windDir + 30,
 			tide: values.tide[1]
 		},
 		pseudo: true,
@@ -99,9 +100,27 @@ export const saveSpot = (values, history) => async dispatch => {
 		spot: res.data.id
 	};
 
+	const pseudoCrap = {
+		daytime: null,
+		condition: {
+			rating: 0,
+			swellSize: 0,
+			swellDirection: values.swellDir < 180 ? values.swellDir + 180: values.swellDir - 180,
+			swellPeriod: 0,
+			swellEnergy: 0,
+			windSpeed: 100,
+			windDirection: values.windDir < 180 ? values.windDir + 180: values.windDir - 180,
+			tide: values.tide[1]>1.6 ? 0 : values.tide[0]<0.8 ? 2.5 : null
+		},
+		pseudo: true,
+		comments: null,
+		spot: res.data.id
+	};
+
 	axios.post("/api/sessions/add", pseudoMin);
 	axios.post("/api/sessions/add", pseudoMax);
 	axios.post("/api/sessions/add", pseudoPerfect);
+	axios.post("/api/sessions/add", pseudoCrap);
 
 	await history.push({
 		pathname: "/spot/confirmation",
@@ -196,7 +215,11 @@ export const fetchSessions = () => async dispatch => {
 };
 
 export const fetchForecast = (location) => async dispatch => {
+	
+	dispatch({ type: LOADING_STATE, payload: false });
+
 	const res = await axios.get("/api/forecast?spot=" + location);
 
 	dispatch({ type: FETCH_FORECAST, payload: res.data });
+	dispatch({ type: LOADING_STATE, payload: res.data });
 };
