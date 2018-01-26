@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SecondaryData from './SecondaryData';
 import ArrowComp from './ArrowComp';
 
@@ -68,7 +68,7 @@ export default ({ forecast, showSecondary, hideNights, showEvery }) => {
 								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}><ArrowComp value={primarySwellDirection} /></div>
 							</div>
 							{showSecondary?<SecondaryData secondarySize={secondarySwellSize} secondaryPeriod={secondarySwellPeriod} secondaryEnergy={secondarySwellEnergy} secondaryDirection={secondarySwellDirection} percentageToHsl={percentageToHsl} />:null}
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:percentageToHslWind(windSpeed/60, 180, 0)}}>
+							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:percentageToHslWind(windSpeed/50, 180, 0)}}>
 								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{windSpeed.toFixed(0)}</div>
 							</div>
 							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>

@@ -8,6 +8,7 @@ const keys = require('./config/keys');
 require('./models/User');
 require('./models/Spot');
 require('./models/Session');
+require('./models/Rating');
 require('./models/ForecastHist');
 require('./models/ForecastTable');
 require('./services/passport');
@@ -37,6 +38,7 @@ require('./routes/locationRoutes')(app);
 require('./routes/conditionRoutes')(app);
 require('./routes/forecastRoutes')(app);
 require('./routes/modelCreation')(app);
+require('./routes/ratingRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
 	// Express will serve production assests like main.js file

@@ -9,6 +9,7 @@ const RatingModel = mongoose.model("ratingModel")
 const Sessions = mongoose.model("sessions");
 
 const modelCreation = async ( spotID ) => {
+
 	Sessions.find({ _spot: spotID }).exec(async function(err, doc) {
 		const ratings = doc.map(s => s.condition.rating / 10);
 		const windSpeeds = doc.map(
@@ -47,8 +48,11 @@ const modelCreation = async ( spotID ) => {
 			tideModel: tideModel
 		}
 
-		RatingModel.findOneAndUpdate({_spot:spotID}, modelsArray,{upsert:true}, function(err, doc){
-			if (err) return res.send(500, { error: err });
+		RatingModel.findOneAndUpdate({ _spot: spotID }, { models: modelsArray }, {upsert:true}, function(err, doc){
+			if (err){
+				console.log(err) 
+				return res.send(500, { error: err })
+			};
 		});
 
 	});

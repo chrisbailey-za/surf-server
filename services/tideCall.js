@@ -22,16 +22,15 @@ const tideCall = async () => {
 	const res = await axios.get(options);
 	const tideData = res.data.heights;
 
-	Tide.findOne({}, {}, { sort: { 'created_at' : -1 } }
-			).exec(async function(err, doc) {
-				doc.remove()
+	Tide.findOneAndUpdate({}, 
+		{
+			tideTable: tideData,
+			date: tideData[0].dt * 1000
+		}, 
+		{upsert:true}, 
+		function(err, doc){
+				if (err) return res.send(500, { error: err });
 			});
-
-	const tide = await new Tide({
-		tideTable: tideData,
-		date: tideData[0].dt * 1000
-	})
-	tide.save()
 };
 
 

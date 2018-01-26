@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchSpots, fetchForecast } from '../../actions';
+import { fetchSpots, fetchForecast, fetchRatings } from '../../actions';
 import { Toggle } from "material-ui";
 import Picker from 'react-picker-mb';
 import ForecastSelector from './table/ForecastSelector';
 import RowLabels from './table/RowLabels';
-import PrimaryData from './table/PrimaryData';
 import ShowEvery from './table/ShowEvery';
 import TableLoader from './table/TableLoader';
+import SpotRatings from './spotRatings/SpotRatings';
 
 class ForecastTable extends Component {
 
@@ -24,6 +24,7 @@ class ForecastTable extends Component {
 	componentDidMount(){
 		this.props.fetchSpots();
 		this.props.fetchForecast('848');
+		this.props.fetchRatings();
 		this.setState({showEvery:2, hideNights:true, hideSecondary: true, location:848})
 	}
 
@@ -81,7 +82,7 @@ class ForecastTable extends Component {
 				<div className="row" style={{overflowX:'scroll', position:'absolute', left:'0'}}>
 					<RowLabels showSecondary={!this.state.hideSecondary}/>
 					<div className="col" style={window.innerWidth>600?{width:'80vw', marginTop: '0.5rem', marginBottom:'1rem', overflowX:'scroll', display:'flex', fontSize:'10px'}:{width:'98vw', paddingTop:'1%', margin: '0.5rem 1vw', marginBottom:'1rem', overflowX:'scroll', display:'flex', fontSize:'10px'}}>
-						<TableLoader loading={this.props.loading} forecast={this.props.forecast} hideNights={this.state.hideNights} showEvery={this.state.showEvery} showSecondary={!this.state.hideSecondary}/>
+						<TableLoader loading={this.props.loadingForecast} forecast={this.props.forecast} hideNights={this.state.hideNights} showEvery={this.state.showEvery} showSecondary={!this.state.hideSecondary}/>
 					</div>
 					<div className="fixed-action-btn">
 				    <Link to="/session/add" className="btn-floating btn-large orange">
@@ -91,6 +92,7 @@ class ForecastTable extends Component {
 				</div>
 					<div style={this.state.hideSecondary?{marginTop:'330px', position:'relative'}:{marginTop:'430px', position:'relative'}}>
 					</div>
+						<SpotRatings hideNights={this.state.hideNights}/>
 					<div className="cyan darken-2" style={{height:'50px', position:'relative'}}>
 						<span className="white-text">footer content</span>
 					</div>
@@ -99,10 +101,10 @@ class ForecastTable extends Component {
 	}
 }
 
-function mapStateToProps({ spots, forecast, loading }){
-	return { spots, forecast, loading };
+function mapStateToProps({ spots, forecast, loadingForecast, ratings }){
+	return { spots, forecast, loadingForecast, ratings };
 }
 
-export default connect( mapStateToProps, {fetchSpots, fetchForecast} )(ForecastTable);
+export default connect( mapStateToProps, {fetchSpots, fetchForecast, fetchRatings} )(ForecastTable);
 
 

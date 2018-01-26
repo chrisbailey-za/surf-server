@@ -1,11 +1,13 @@
 const keys = require("../config/keys");
 const mongoose = require("mongoose");
 require("../models/RatingModel");
+require("../models/Rating");
 require("../models/Spot");
 
 mongoose.connect(keys.mongoURI);
 
 const RatingModel = mongoose.model("ratingModel")
+const Rating = mongoose.model("rating")
 const Spots = mongoose.model("spots")
 
 const windRating = ( windSpeedModel, windDirectionModel, speed, direction ) => {
@@ -43,6 +45,9 @@ const ratingCalculation = (forecast) => {
 		if (err) { console.log(err) }
 		doc.forEach((spot) => {
 
+			const user = spot._user;
+			console.log('user = ' + user);
+
 			RatingModel.findOne({ _spot : spot.id }).exec( async function(err, doc){
 				if (err) { console.log(err) }
 				
@@ -66,7 +71,9 @@ const ratingCalculation = (forecast) => {
 						return doc.models.tideModel.coefficients[0] + doc.models.tideModel.coefficients[1]*input + doc.models.tideModel.coefficients[2]*(input^2);
 				}
 
-				forecast.forEach((elem) => {
+				var ratingArr = [];
+
+				await forecast.forEach((elem) => {
 
 					const windF = windRating(windSpeedModel, windDirectionModel, elem.windSpeed, elem.windDirection)>0?windRating(windSpeedModel, windDirectionModel, elem.windSpeed, elem.windDirection):0;
 					const swellF = swellRating(swellEnergyModel, swellDirectionModel, elem.primarySwellEnergy, elem.primarySwellDirection, elem.primarySwellPeriod)>0?swellRating(swellEnergyModel, swellDirectionModel, elem.primarySwellEnergy, elem.primarySwellDirection, elem.primarySwellPeriod):0;
@@ -74,11 +81,13 @@ const ratingCalculation = (forecast) => {
 
 					const score = 0.8*Math.min( windF, swellF, tideF ) + 0.05*Math.max( windF, swellF, tideF ) + 0.15*[ windF, swellF, tideF ].sort((a,b) => a - b)[1]
 					
-					const rating = {score: score, _spot: spot.id, date: elem.dayTime};
-
-					console.log(rating);
+					ratingArr.push({ score: score, date: elem.dayTime });
 
 				})
+
+				Rating.findOneAndUpdate({_spot:spot.id, _user:user}, {ratingArr: ratingArr}, {upsert:true}, function(err, doc){
+					if (err) return res.send(500, { error: err });
+				});
 
 			})
 		})

@@ -5,6 +5,8 @@ import spotReducer from './spotReducer';
 import sessionReducer from './sessionReducer';
 import forecastReducer from './forecastReducer';
 import loadingReducer from './loadingReducer';
+import ratingReducer from './ratingReducer';
+import loadingRatingReducer from './loadingRatingReducer';
 import { reducer as reduxForm } from 'redux-form';
 
 export default combineReducers({
@@ -14,5 +16,7 @@ export default combineReducers({
 	spots: spotReducer,
 	sessions: sessionReducer,
 	forecast: forecastReducer,
-	loading: loadingReducer
+	loadingForecast: loadingReducer,
+	ratings: ratingReducer,
+	loadingRating: loadingRatingReducer
 });

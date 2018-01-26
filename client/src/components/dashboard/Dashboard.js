@@ -15,7 +15,9 @@ class Dashboard extends Component {
 			);
 		default:
 		return(
+			<div>
 				<ForecastTable />
+			</div>
 			);
 		}
 	}

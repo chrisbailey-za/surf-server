@@ -5,7 +5,9 @@ import {
 	FETCH_SPOTS,
 	FETCH_SESSIONS,
 	FETCH_FORECAST,
-	LOADING_STATE
+	LOADING_FORECAST,
+	FETCH_RATINGS,
+	LOADING_RATING
 } from "./types";
 
 export const fetchUser = () => async dispatch => {
@@ -216,12 +218,22 @@ export const fetchSessions = () => async dispatch => {
 	dispatch({ type: FETCH_SESSIONS, payload: res.data });
 };
 
+export const fetchRatings = () => async dispatch => {
+
+	dispatch({ type: LOADING_RATING, payload: false });
+
+	const res = await axios.get("/api/ratings/fetchAll");
+
+	dispatch({ type: FETCH_RATINGS, payload: res.data });
+	dispatch({ type: LOADING_RATING, payload: res.data });
+};
+
 export const fetchForecast = (location) => async dispatch => {
 	
-	dispatch({ type: LOADING_STATE, payload: false });
+	dispatch({ type: LOADING_FORECAST, payload: false });
 
 	const res = await axios.get("/api/forecast?spot=" + location);
 
 	dispatch({ type: FETCH_FORECAST, payload: res.data });
-	dispatch({ type: LOADING_STATE, payload: res.data });
+	dispatch({ type: LOADING_FORECAST, payload: res.data });
 };
