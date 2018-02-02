@@ -29,6 +29,7 @@
     "react-slider": "^0.9.0",
     "react-spinners": "^0.2.5",
     "react-tap-event-plugin": "^3.0.2",
+    "react-text-loop": "^1.1.0",
     "redux": "^3.7.2",
     "redux-form": "^7.1.2",
     "redux-thunk": "^2.2.0",

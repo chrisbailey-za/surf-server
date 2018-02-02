@@ -51,7 +51,6 @@ if (process.env.NODE_ENV === 'production') {
 	});
 }
 
-//ratingFunc("5a603dede53b7a02afb7d995")
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
+

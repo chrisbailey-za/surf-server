@@ -27,8 +27,8 @@ class App extends Component {
 						<div>
 							<Header />
 							<div className="container">
-								<Route exact path="/" component={Landing} />
-								<Route exact path="/home" component={Dashboard} />
+								<Route exact path="/" component={Dashboard} />
+								<Route exact path="/landing" component={Landing} />
 								<Route exact path="/session/add" component={SurfNew} />
 								<Route exact path="/spot/add" component={SpotNew} />
 								<Route exact path="/spot/confirmation" component={SpotConfirmation} />

@@ -16,6 +16,12 @@ const	percentageToHsl = (percentage, hue0, hue1) => {
     return 'hsl(' + hue + ', 100%, ' + perc + '%)';
 	}
 
+const	percentageToHslPeriod = (percentage, hue0, hue1) => {
+  var hue = (percentage * (hue1 - hue0)) + hue0;
+  var perc = (1 - percentage)*30 + 70;
+  return 'hsl(' + hue + ', 100%, ' + perc + '%)';
+}
+
 
 const percentageToHslWind = (percentage, hue0, hue1) => {
 		var hue = ''
@@ -24,7 +30,8 @@ const percentageToHslWind = (percentage, hue0, hue1) => {
     }else{
     	hue = (percentage * (0 - 180)) + 180;
     }
-    return 'hsl(' + hue + ', 100%, 80%)';
+    var perc = (1 - percentage)*50 + 50;
+    return 'hsl(' + hue + ', 100%,' + perc + '%)';
 	}
 
 const getWeekday = (n) => {
@@ -58,17 +65,17 @@ export default ({ forecast, showSecondary, hideNights, showEvery }) => {
 							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:percentageToHsl(primarySwellSize/10, 210, 250)}}>
 					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{primarySwellSize.toFixed(1)}</div>
 					  	</div>
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:percentageToHsl((primarySwellPeriod-5)/20, 45, 90)}}>
+							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:percentageToHslPeriod((primarySwellPeriod - 8 )/12, 360, 360)}}>
 								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{primarySwellPeriod.toFixed(0)}</div>				  	
 							</div>
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:percentageToHsl(primarySwellEnergy/400, 45, 0)}}>
+							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:percentageToHsl(primarySwellEnergy/300, 45, 0)}}>
 								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{primarySwellEnergy.toFixed(0)}</div>				  	
 							</div>
 							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>
 								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}><ArrowComp value={primarySwellDirection} /></div>
 							</div>
-							{showSecondary?<SecondaryData secondarySize={secondarySwellSize} secondaryPeriod={secondarySwellPeriod} secondaryEnergy={secondarySwellEnergy} secondaryDirection={secondarySwellDirection} percentageToHsl={percentageToHsl} />:null}
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:percentageToHslWind(windSpeed/50, 180, 0)}}>
+							{showSecondary?<SecondaryData secondarySize={secondarySwellSize} secondaryPeriod={secondarySwellPeriod} secondaryEnergy={secondarySwellEnergy} secondaryDirection={secondarySwellDirection} percentageToHsl={percentageToHsl} percentageToHslPeriod={percentageToHslPeriod} />:null}
+							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor:percentageToHslWind(windSpeed/30, 180, 0)}}>
 								<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{windSpeed.toFixed(0)}</div>
 							</div>
 							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px'}}>

@@ -46,7 +46,6 @@ const ratingCalculation = (forecast) => {
 		doc.forEach((spot) => {
 
 			const user = spot._user;
-			console.log('user = ' + user);
 
 			RatingModel.findOne({ _spot : spot.id }).exec( async function(err, doc){
 				if (err) { console.log(err) }

@@ -53,6 +53,8 @@ class SpotNotificationSlider extends Component {
 						onChange={this.props.input.onChange}
             disabled={!this.state.toggled} 
             className='inverted'
+            max={10}
+            step={0.1}
 						defaultValue={this.props.rating} />
 		  	</div>
       </div>

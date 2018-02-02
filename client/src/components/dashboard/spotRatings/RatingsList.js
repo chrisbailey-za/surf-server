@@ -1,7 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { DropDownMenu, MenuItem } from 'material-ui';
-
 
 const	modifyArr = (ratings, currentSpot, hideNights) => {
 		var newArr = ratings.find((i) => i._spot  === currentSpot);
@@ -26,6 +23,12 @@ const makeHour = (n) => {
 		}
 	}	
 
+const	percentageToHsl = (percentage, hue0, hue1) => {
+  var hue = (percentage * (hue1 - hue0)) + hue0;
+  var perc = (1 - percentage)*50 + 50;
+  return 'hsl(' + hue + ', 100%, ' + perc + '%)';
+}
+
 
 const RatingsList = ({ ratings, currentSpot, hideNights }) => {
 		const initialArr = modifyArr(ratings, currentSpot, hideNights)
@@ -43,7 +46,7 @@ const RatingsList = ({ ratings, currentSpot, hideNights }) => {
 					  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'lightgrey'}}>
 					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{makeHour(new Date(date*1000).getHours())}</div>
 					  	</div>
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'rgba(245, 124, 0, '+score/100+')' }}>
+							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: percentageToHsl(score/100, 40, 0)}}>
 					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{score.toFixed(0)}</div>
 					  	</div>
 					</div>

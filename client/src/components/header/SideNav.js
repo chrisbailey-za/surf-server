@@ -19,12 +19,12 @@ class SideNav extends Component {
 						</div>
 						<div className='email'>
 							<img src='/img/Logo.png' alt="" style={imageStyle}></img>
-			      	<h4 className="cyan-text text-lighten-4">My SurfApp</h4>
+			      	<h4 className="cyan-text text-lighten-4" style={{fontFamily: 'Pacifico'}}>Surf Recce</h4>
 			      </div>
 			    </div>
 		    </li>
 		    <li><div className="divider no-margin"></div></li>
-		    <li><Link to="/home" >Home<i className="material-icons cyan-text text-darken-3 right">home</i></Link></li>
+		    <li><Link to="/" >Home<i className="material-icons cyan-text text-darken-3 right">home</i></Link></li>
 		    <li><Link to="/session/add">Add a Session<i className="material-icons cyan-text text-darken-3 right">add_circle</i></Link></li>
 		    <li><Link to="/session/logs">My Surf Logs<i className="material-icons cyan-text text-darken-3 right">equalizer</i></Link></li>
 		    <li><Link to="/spot/add">Add a Spot<i className="material-icons cyan-text text-darken-3 right">place</i></Link></li>

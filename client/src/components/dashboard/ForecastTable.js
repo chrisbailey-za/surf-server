@@ -9,6 +9,7 @@ import RowLabels from './table/RowLabels';
 import ShowEvery from './table/ShowEvery';
 import TableLoader from './table/TableLoader';
 import SpotRatings from './spotRatings/SpotRatings';
+import BestSpots from './bestSpots/BestSpots';
 
 class ForecastTable extends Component {
 
@@ -52,7 +53,7 @@ class ForecastTable extends Component {
 	render() {
 		return (
 			<div style={{paddingTop: '3%'}}>
-				<h3 className="cyan lighten-5" style={{padding:'5%'}}>Best Spots</h3>
+				<BestSpots />
 				<ForecastSelector label="Forecast For" updateFunc={this.updateFunc} location={this.state.location}/>
 				<div className="row">
 					<div className="col s4 flow-text">

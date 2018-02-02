@@ -14,7 +14,7 @@ module.exports = app => {
 			maxCondition: maxCondition,
 			location: location,
 			notification: quality > 2 ? true : false,
-			notificationVal: 100 - quality*5,
+			notificationVal: 10 - quality*0.5,
 			_user: req.user.id
 		});
 	

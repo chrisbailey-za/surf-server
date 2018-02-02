@@ -4,8 +4,8 @@ const Landing = () => {
 
 	return(
 		<div style={{textAlign: 'center', overflow:'hidden'}}>
-				<h1 style={{paddingTop: '1%'}}>
-					SurfApp
+				<h1 style={{paddingTop: '1%', fontFamily: 'Pacifico'}}>
+					<span >Surf Recce</span>
 				</h1>
 				<div className='row'>
 					<div className='col s10 m10 l10 xl6 push-s1 push-m1 push-l1 push-xl3'>

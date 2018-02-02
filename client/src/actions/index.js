@@ -50,7 +50,7 @@ export const saveSpot = (values, history) => async dispatch => {
 	const pseudoMin = {
 		daytime: null,
 		condition: {
-			rating: 75,
+			rating: 7.5,
 			swellSize: values.swellSize[0],
 			swellDirection: values.swellDir < 30 ? values.swellDir + 330 : values.swellDir - 30,
 			swellPeriod: 14,
@@ -67,7 +67,7 @@ export const saveSpot = (values, history) => async dispatch => {
 	const pseudoMax = {
 		daytime: null,
 		condition: {
-			rating: 75,
+			rating: 7.5,
 			swellSize: values.swellSize[1],
 			swellDirection: values.swellDir > 330 ? values.swellDir - 330 : values.swellDir + 30,
 			swellPeriod: 14,
@@ -84,7 +84,7 @@ export const saveSpot = (values, history) => async dispatch => {
 	const pseudoPerfect = {
 		daytime: null,
 		condition: {
-			rating: 100,
+			rating: 10,
 			swellSize: (values.swellSize[0] + values.swellSize[1]) / 2,
 			swellDirection: values.swellDir,
 			swellPeriod: 18,
@@ -174,7 +174,7 @@ export const saveSession = (values, history) => async dispatch => {
 		var pseudoValues = {
 			daytime: new Date(epochDate * 1000),
 			condition: {
-				rating: 95,
+				rating: 9.5,
 				swellSize: currentConditions.primarySwellSize + values.pseudoSwell,
 				swellDirection: values.pseudoSwellDir,
 				swellPeriod: currentConditions.primarySwellPeriod,
@@ -194,7 +194,7 @@ export const saveSession = (values, history) => async dispatch => {
 		axios.post("/api/sessions/add", pseudoValues);
 	}
 
-	await history.push({ pathname: "/home" });
+	await history.push({ pathname: "/" });
 	axios.post("/api/ratingmodel/update", { spotID: values.spot })
 
 	dispatch({ type: FETCH_USER, payload: res.data });

@@ -31,7 +31,9 @@ export default ({ input, label, rating, isActive, meta:{touched, error} }) => {
 		  	<div className="col s6 m8">
 		  			<Slider handle={handle}
 								onChange={input.onChange} {...isActive} 
-								defaultValue={0} />		  	
+								defaultValue={0} 
+								max={10}
+								step={0.1} />		  	
 				  <div className="red-text">
 		  			{touched && error}
 		  		</div>
