@@ -104,7 +104,7 @@ const renderDays = (ratingSummary) => {
 
 const renderSuggestions = (values) => {
 	return values.map(({ratings, spot, time}) => {
-			if(ratings == 'tooLate'){
+			if(ratings === 'tooLate'){
 				return(
 					<div className="row"><span>Too late bru,<br></br> check tomorrow</span></div>
 				)

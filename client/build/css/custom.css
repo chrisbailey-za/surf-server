@@ -1,0 +1,141 @@
+
+html, body { 
+  min-height: -webkit-fill-available; 
+}
+
+#slide-out{
+  transition: .8s transform;
+}
+
+#slide-out * a:hover{
+  background-color: rgba(0,0,0,0.1);
+  transition: background-color .3s;
+}
+
+#root {
+  overflow: hidden;
+  position: relative;
+  min-height: -webkit-fill-available;
+  min-height: -moz-available;  
+}
+
+#surfVal {
+  height:50px;
+  width:50px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: grey;
+}    
+
+
+.ocean { 
+  width:100%;
+  bottom:0px;
+}
+
+.wave1 {
+  background: url(/img/wave.svg) repeat-x; 
+  position: absolute;
+  bottom: -30px;
+  width: 6000px;
+  height: 100px;
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+  transform: translate3d(0, 0, 0);
+}
+
+
+.wave2 {
+  background: url(/img/wave.svg) repeat-x; 
+  position: absolute;
+  bottom: -30px;
+  width: 6000px;
+  height: 110px;
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+  transform: translate3d(0, 0, 0);
+  opacity: 0.8;
+}
+
+.wave3 {
+  background: url(/img/wave.svg) repeat-x;
+  position: absolute; 
+  bottom: -30px;
+  width: 6000px;
+  height: 120px;
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.525s infinite, swell 7s ease -1.25s infinite;
+  transform: translate3d(0, 0, 0);
+  opacity: 0.7;
+}
+
+.helper {
+  color: white;
+}
+
+select.select{
+  display: block;
+}
+
+
+@keyframes wave {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -1600px;
+  }
+}
+
+
+@keyframes swell {
+  0%, 100% {
+    transform: translate3d(0,-25px,0);
+  }
+  50% {
+    transform: translate3d(0,5px,0);
+  }
+}
+
+.rs-control .rs-range-color {
+    background-color: black;
+}
+
+.rs-control .rs-path-color {
+    background-color: white;
+}
+
+.rs-control .rs-bg-color {
+    background-color: white;
+}
+
+.rs-border  {
+    border-color: black;
+}
+
+.rs-handle  {
+  width: 0; 
+  height: 0;
+  margin-top: -20px !important;
+  margin-right: 10px !important;
+  background: none;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent; 
+  border-right:40px solid #0097a7; 
+}
+.rs-handle:after  {
+  display: block;
+  content: " ";
+  width: 50px;
+  position: absolute;
+  margin-top: -5px;
+  right: 15px;
+  border-top: 10px solid #0097a7;
+}
+
+.mobilePicker{
+  width: 30vw;
+}
+
+.picker.picker-3d{
+   z-index: 10; 
+}
