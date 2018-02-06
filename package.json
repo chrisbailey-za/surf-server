@@ -12,7 +12,7 @@
     "msw": "node -e \"require('./services/mswCall.js')\"",
     "tide": "node -e \"require('./services/tideCall.js')\"",
     "server": "nodemon index.js",
-    "client": "npm run start --prefix client",
+    "client": "npm install --prefix client && npm run build --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "poststart": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
