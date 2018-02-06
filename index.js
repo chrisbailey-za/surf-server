@@ -5,6 +5,7 @@ const passport = require('passport');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
+const CronJob = require('cron').CronJob;
 require('./models/User');
 require('./models/Spot');
 require('./models/Session');
@@ -12,7 +13,8 @@ require('./models/Rating');
 require('./models/ForecastHist');
 require('./models/ForecastTable');
 require('./services/passport');
-//const ratingFunc = require('./services/ratingCalculation');
+require('./services/tideCall');
+require('./services/mswCall');
 
 mongoose.connect(keys.mongoURI);
 
@@ -50,6 +52,9 @@ if (process.env.NODE_ENV === 'production') {
 		res.sendFile(path.resolve(__dirname,'client', 'build', 'index.html'));
 	});
 }
+
+var tideCron = new CronJob({cronTime: '* * *', onTick: tideCall(), start: true, timeZone: 'Africa/Johannesburg'})
+var mswCron = new CronJob({cronTime: '* * * *', onTick: mswCall(), start: true, timeZone: 'Africa/Johannesburg'})
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
