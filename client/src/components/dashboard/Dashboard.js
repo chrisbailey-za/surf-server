@@ -11,7 +11,7 @@ class Dashboard extends Component {
 			return;
 		case false:
 		return(
-		 		<Redirect to='/'/>
+		 		<Redirect to='/landing'/>
 			);
 		default:
 		return(
