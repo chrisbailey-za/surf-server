@@ -38,6 +38,13 @@ const tideRating = ( tideModel, tide ) => {
 	return tideModel(tide);
 };
 
+const quadModel = (coefficents, value) => {
+	return coefficents[0] + coefficents[1]*value + coefficents[2]*(value^2);
+}
+
+const sinModel = (coefficents, value) => {
+	return coefficents[0] * Math.sin(((value/180)*Math.PI) + coefficents[1]) + coefficents[2];
+}
 
 const ratingCalculation = (forecast) => {
 
@@ -51,23 +58,23 @@ const ratingCalculation = (forecast) => {
 				if (err) { console.log(err) }
 				
 				const windSpeedModel = (input) => {
-						return doc.models.windSpeedModel.coefficients[0] + doc.models.windSpeedModel.coefficients[1]*input + doc.models.windSpeedModel.coefficients[2]*(input^2);
+						return quadModel( doc.models.windSpeedModel, input );
 				}
 
 				const windDirectionModel = (input) => {
-						return doc.models.windDirectionModel.coefficients[0] + doc.models.windDirectionModel.coefficients[1]*input + doc.models.windDirectionModel.coefficients[2]*(input^2) + doc.models.windDirectionModel.coefficients[3]*(input^3);
+						return sinModel(doc.models.windDirectionModel, input);
 				}
 
 				const swellEnergyModel = (input) => {
-						return doc.models.swellEnergyModel.coefficients[0] + doc.models.swellEnergyModel.coefficients[1]*input + doc.models.swellEnergyModel.coefficients[2]*(input^2);
+						return quadModel( doc.models.swellEnergyModel, input );
 				}
 
 				const swellDirectionModel = (input) => {
-						return doc.models.swellDirectionModel.coefficients[0] + doc.models.swellDirectionModel.coefficients[1]*input + doc.models.swellDirectionModel.coefficients[2]*(input^2) + doc.models.swellDirectionModel.coefficients[3]*(input^3);
+						return sinModel(doc.models.swellDirectionModel, input);
 				}
 
 				const tideModel = (input) => {
-						return doc.models.tideModel.coefficients[0] + doc.models.tideModel.coefficients[1]*input + doc.models.tideModel.coefficients[2]*(input^2);
+						return quadModel( doc.models.tideModel, input );
 				}
 
 				var ratingArr = [];
@@ -80,7 +87,7 @@ const ratingCalculation = (forecast) => {
 
 					const score = 0.8*Math.min( windF, swellF, tideF ) + 0.05*Math.max( windF, swellF, tideF ) + 0.15*[ windF, swellF, tideF ].sort((a,b) => a - b)[1]
 					
-					ratingArr.push({ score: score, date: elem.dayTime });
+					ratingArr.push({ score: score, date: elem.dayTime, windScore: windF, swellScore: swellF, tideScore: tideF });
 
 				})
 

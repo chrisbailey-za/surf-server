@@ -7,6 +7,7 @@ import forecastReducer from './forecastReducer';
 import loadingReducer from './loadingReducer';
 import ratingReducer from './ratingReducer';
 import loadingRatingReducer from './loadingRatingReducer';
+import filterReducer from './filterReducer';
 import { reducer as reduxForm } from 'redux-form';
 
 export default combineReducers({
@@ -18,5 +19,6 @@ export default combineReducers({
 	forecast: forecastReducer,
 	loadingForecast: loadingReducer,
 	ratings: ratingReducer,
-	loadingRating: loadingRatingReducer
+	loadingRating: loadingRatingReducer,
+	filter: filterReducer
 });

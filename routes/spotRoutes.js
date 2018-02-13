@@ -44,4 +44,18 @@ module.exports = app => {
 
 		res.send(spots);
 	})
+
+	app.get('/api/spots/updateNotifications', requireLogin, async (req, res) => {
+
+
+		req.body.forEach((spot) => {
+			const { spotName, notification, notificationVal } = spot;
+
+			Spot.findOneAndUpdate({ spotName: spotName }, { notification: notification, notificationVal: notificationVal } )
+
+		})
+
+
+		res.send(req.user);
+	})
 };

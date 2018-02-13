@@ -17,12 +17,14 @@ class BestSpots extends Component {
 				</div>
 				)
 
-		}else{
+		}else if(this.props.ratings && this.props.spots){
 
 			return (
 				<BestTable ratings={this.props.ratings} spots={this.props.spots} />
 			);
 
+		}else{
+		 	return null
 		}
 	}
 }

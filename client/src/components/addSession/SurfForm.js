@@ -9,8 +9,11 @@ import DateSelector from "../forms/DateSelector";
 import TimeSelector from "../forms/TimeSelector";
 import PseudoSession from "./PseudoSession";
 import * as actions from "../../actions/index";
+import { CircleLoader } from 'react-spinners';
 
 class SurfForm extends Component {
+
+	state = {}
 
 	constructor(props){
     super(props);
@@ -19,6 +22,7 @@ class SurfForm extends Component {
   }
 
   dispatchSubmit(values, dispatch, history) {
+  	this.setState({loadingSession:true})
     return dispatch(actions.saveSession(values, this.props.history));
 	}
 
@@ -49,6 +53,20 @@ class SurfForm extends Component {
 	  });
 	}
 
+	loadingSession(){
+		if(this.state.loadingSession){
+			return(
+				<div style={{position: 'absolute', top: 20, left: 0, width:'100%', height: '100%', background:'lightgrey', zIndex: '1000', textAlign: '-webkit-center'}}>
+					<div style={{margin:'auto'}}>
+						<h3> Adding your Session </h3>
+						<CircleLoader loading={this.props.loadingSession} color="#0097a7" size={250}/>
+					</div>
+				</div>
+			)
+		}
+		return null
+	}
+
 	renderFields(){
 		return (
 				<div>
@@ -64,6 +82,7 @@ class SurfForm extends Component {
 	render() {
 		return (
 			<div style={{paddingTop: '5%'}}>
+			{this.loadingSession()}
 				<form onSubmit={this.props.handleSubmit((values, dispatch) => this.dispatchSubmit(values, dispatch))}>
 					{this.renderFields()}
 					<PseudoSession change={this.props.change}></PseudoSession>

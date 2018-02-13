@@ -4,23 +4,23 @@ const	splitSpotRatings = ( ratings, spots ) => {
 		const nowDate = new Date().getDate();
 		const nowHour = new Date().getHours();
 
-		console.log(nowDate + ' ' + nowHour);
-
 		const todayElem = [];
 		const tomorrowElem = [];
 		const plusTwoElem = [];
 		const plusThreeElem = [];
 		const plusFourElem = [];
 		
-		ratings.map(({_spot, ratingArr}) => {
+		ratings.forEach(({ratingArr, _spot}) => {
 
-			var today = ratingArr.filter((entry) => new Date(entry.date*1000).getHours() >= nowHour && new Date(entry.date*1000).getDate() === nowDate && isDay(entry.date));
-			const tomorrow = ratingArr.filter((entry) => new Date(entry.date*1000 - 86400000).getDate() === nowDate && isDay(entry.date));
-			const plusTwo = ratingArr.filter((entry) => new Date(entry.date*1000 - 172800000).getDate() === nowDate && isDay(entry.date));
-			const plusThree = ratingArr.filter((entry) => new Date(entry.date*1000 - 259200000).getDate() === nowDate && isDay(entry.date));			
-			const plusFour = ratingArr.filter((entry) => new Date(entry.date*1000 - 345600000).getDate() === nowDate && isDay(entry.date));
-
-			if(nowHour > 19){today = [{score:'tooLate'}]}
+			if(nowHour > 19){
+				var today = [{score:'tooLate'}]
+			}else{
+				today = ratingArr.filter(({date}) => new Date(date*1000).getHours() >= nowHour && new Date(date*1000).getDate() === nowDate && isDay(date));
+			}
+			const tomorrow = ratingArr.filter(({date}) => new Date(date*1000 - 86400000).getDate() === nowDate && isDay(date));
+			const plusTwo = ratingArr.filter(({date}) => new Date(date*1000 - 172800000).getDate() === nowDate && isDay(date));
+			const plusThree = ratingArr.filter(({date}) => new Date(date*1000 - 259200000).getDate() === nowDate && isDay(date));			
+			const plusFour = ratingArr.filter(({date}) => new Date(date*1000 - 345600000).getDate() === nowDate && isDay(date));
 
 			const topTimeToday = getMax(today);
 			const topTimeTomorrow = getMax(tomorrow);
@@ -58,6 +58,7 @@ const	splitSpotRatings = ( ratings, spots ) => {
 
 
 const findSpot = (spot, spotList) => {
+	console.log(spot);
 	const spotObj = spotList.find((a) => a._id === spot);
 	return spotObj.spotName
 }
@@ -111,9 +112,9 @@ const renderSuggestions = (values) => {
 			}else{
 				return(
 					<div className="row">
-						<div>{ratings>25?<i className="material-icons orange-text" style={{verticalAlign: 'text-bottom'}}>star</i>:null}
+						<div>{ratings>7.5?<i className="material-icons orange-text" style={{verticalAlign: 'text-bottom'}}>star</i>:null}
 						<span style={{fontSize:'22px', fontWight:'bold'}}>{ratings.toFixed(1)}</span>
-						{ratings>25?<i className="material-icons orange-text" style={{verticalAlign: 'text-bottom'}}>star</i>:null}</div>
+						{ratings>7.5?<i className="material-icons orange-text" style={{verticalAlign: 'text-bottom'}}>star</i>:null}</div>
 						<div className="row"><span>{spot} </span><span>at</span><span> {time}</span></div>
 					</div>
 				)
@@ -123,10 +124,10 @@ const renderSuggestions = (values) => {
 
 
 const BestTable = ({ ratings, spots, hideNights }) => {
-		const ratingSummary = splitSpotRatings(ratings, spots);
-		console.log(ratingSummary);
+		
+		if(ratings.length > 1 && spots.length > 1){
 
-		if(ratingSummary[0].label){
+		const ratingSummary = splitSpotRatings(ratings, spots);
 
 			return(
 					<div className='col' style={{textAlign:'center'}}>
@@ -138,8 +139,9 @@ const BestTable = ({ ratings, spots, hideNights }) => {
 				  	</div>
 					</div>
 			)
-
-		}else{ return null }
+	}else{
+		return null
+	}
 }
 
 export default BestTable;

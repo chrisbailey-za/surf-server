@@ -7,7 +7,8 @@ import {
 	FETCH_FORECAST,
 	LOADING_FORECAST,
 	FETCH_RATINGS,
-	LOADING_RATING
+	LOADING_RATING,
+	FILTER_SESSIONS
 } from "./types";
 
 export const fetchUser = () => async dispatch => {
@@ -26,7 +27,7 @@ export const saveSpot = (values, history) => async dispatch => {
 			swellSize: values.swellSize[0],
 			swellDirection: values.swellDir,
 			swellPeriod: 14,
-			swellEnergy: values.swellSize[0]*values.swellSize[0]*14,
+			swellEnergy: values.swellSize[0] * values.swellSize[0] * 14,
 			windSpeed: values.windSpeed[0],
 			windDirection: values.windDir,
 			tide: values.tide[0]
@@ -37,7 +38,7 @@ export const saveSpot = (values, history) => async dispatch => {
 			swellSize: values.swellSize[1],
 			swellDirection: values.swellDir,
 			swellPeriod: 14,
-			swellEnergy: values.swellSize[1]*values.swellSize[1]*14,
+			swellEnergy: values.swellSize[1] * values.swellSize[1] * 14,
 			windSpeed: values.windSpeed[1],
 			windDirection: values.windDir,
 			tide: values.tide[1]
@@ -52,11 +53,13 @@ export const saveSpot = (values, history) => async dispatch => {
 		condition: {
 			rating: 7.5,
 			swellSize: values.swellSize[0],
-			swellDirection: values.swellDir < 30 ? values.swellDir + 330 : values.swellDir - 30,
+			swellDirection:
+				values.swellDir < 30 ? values.swellDir + 330 : values.swellDir - 30,
 			swellPeriod: 14,
 			swellEnergy: values.swellSize[0] * values.swellSize[0] * 14,
 			windSpeed: values.windSpeed[0],
-			windDirection: values.windDir < 30 ? values.windDir + 330 : values.windDir - 30,
+			windDirection:
+				values.windDir < 30 ? values.windDir + 330 : values.windDir - 30,
 			tide: values.tide[0]
 		},
 		pseudo: true,
@@ -69,11 +72,13 @@ export const saveSpot = (values, history) => async dispatch => {
 		condition: {
 			rating: 7.5,
 			swellSize: values.swellSize[1],
-			swellDirection: values.swellDir > 330 ? values.swellDir - 330 : values.swellDir + 30,
+			swellDirection:
+				values.swellDir > 330 ? values.swellDir - 330 : values.swellDir + 30,
 			swellPeriod: 14,
 			swellEnergy: values.swellSize[1] * values.swellSize[1] * 14,
 			windSpeed: values.windSpeed[1],
-			windDirection: values.windDir > 330 ? values.windDir - 330 : values.windDir + 30,
+			windDirection:
+				values.windDir > 330 ? values.windDir - 330 : values.windDir + 30,
 			tide: values.tide[1]
 		},
 		pseudo: true,
@@ -107,12 +112,14 @@ export const saveSpot = (values, history) => async dispatch => {
 		condition: {
 			rating: 0,
 			swellSize: 0,
-			swellDirection: values.swellDir < 180 ? values.swellDir + 180: values.swellDir - 180,
+			swellDirection:
+				values.swellDir < 180 ? values.swellDir + 180 : values.swellDir - 180,
 			swellPeriod: 0,
 			swellEnergy: 0,
 			windSpeed: 100,
-			windDirection: values.windDir < 180 ? values.windDir + 180: values.windDir - 180,
-			tide: values.tide[1]>1.6 ? 0 : values.tide[0]<0.8 ? 2.5 : null
+			windDirection:
+				values.windDir < 180 ? values.windDir + 180 : values.windDir - 180,
+			tide: values.tide[1] > 1.6 ? 0 : values.tide[0] < 0.8 ? 2.5 : null
 		},
 		pseudo: true,
 		comments: null,
@@ -129,7 +136,7 @@ export const saveSpot = (values, history) => async dispatch => {
 		state: { spot: values.spotName }
 	});
 
-	axios.post("/api/ratingmodel/update", { spotID: res.data.id })
+	axios.post("/api/ratingmodel/update", { spotID: res.data.id });
 	dispatch({ type: FETCH_USER, payload: res.data.user });
 };
 
@@ -194,8 +201,12 @@ export const saveSession = (values, history) => async dispatch => {
 		axios.post("/api/sessions/add", pseudoValues);
 	}
 
-	await history.push({ pathname: "/" });
-	axios.post("/api/ratingmodel/update", { spotID: values.spot })
+	await history.push({
+		pathname: "/",
+		state: { addedSession: true }
+	});
+
+	axios.post("/api/ratingmodel/update", { spotID: values.spot });
 
 	dispatch({ type: FETCH_USER, payload: res.data });
 };
@@ -219,7 +230,6 @@ export const fetchSessions = () => async dispatch => {
 };
 
 export const fetchRatings = () => async dispatch => {
-
 	dispatch({ type: LOADING_RATING, payload: false });
 
 	const res = await axios.get("/api/ratings/fetchAll");
@@ -228,12 +238,29 @@ export const fetchRatings = () => async dispatch => {
 	dispatch({ type: LOADING_RATING, payload: res.data });
 };
 
-export const fetchForecast = (location) => async dispatch => {
-	
+export const fetchForecast = location => async dispatch => {
 	dispatch({ type: LOADING_FORECAST, payload: false });
 
 	const res = await axios.get("/api/forecast?spot=" + location);
 
 	dispatch({ type: FETCH_FORECAST, payload: res.data });
 	dispatch({ type: LOADING_FORECAST, payload: res.data });
+};
+
+export const updateNotifications = values => async dispatch => {
+
+	//only add values where touched = true? In here or in reduxForm settings.
+
+	const res = await axios.post("/api/spots/updateNotifications", values);
+
+	// history.push({
+	// 	pathname: "/"
+	// });
+
+	dispatch({ type: FETCH_USER, payload: res.data });
+};
+
+export const filterSessions = (values, type) => async dispatch => {
+
+	dispatch({ type: FILTER_SESSIONS, payload: {val: values, type: type} });
 };

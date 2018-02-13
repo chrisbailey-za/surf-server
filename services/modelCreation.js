@@ -1,11 +1,13 @@
 const keys = require("../config/keys");
 const mongoose = require("mongoose");
 const PolynomialRegression = require("ml-regression").PolynomialRegression;
+const MLRegression = require("ml-levenberg-marquardt")
 require("../models/RatingModel");
 
 mongoose.connect(keys.mongoURI);
+require('../models/Session');
 
-const RatingModel = mongoose.model("ratingModel")
+const RatingModel = mongoose.model("ratingModel");
 const Sessions = mongoose.model("sessions");
 
 const modelCreation = async ( spotID ) => {
@@ -26,26 +28,28 @@ const modelCreation = async ( spotID ) => {
 		);
 		const tide = doc.map(s => (s.condition.tide ? s.condition.tide : null));
 
+		const sinFunction = ([a, b, c]) => { return (t) => a * Math.sin(((t/180)*Math.PI) + b) + c }
+		const options = {
+		  damping: 1.5,
+		  initialValues: [5,0,5],
+		  gradientDifference: 10e-2,
+		  maxIterations: 20,
+		  errorTolerance: 10e-3
+		};
+
 		const windSpeedModel = new PolynomialRegression(windSpeeds, ratings, 2);
-		const windDirectionModel = new PolynomialRegression(
-			windDirection,
-			ratings,
-			3
-		);
+		let windDirectionModel = MLRegression({x:windDirection, y:ratings}, sinFunction, options);
 		const swellEnergyModel = new PolynomialRegression(swellEnergy, ratings, 2);
-		const swellDirectionModel = new PolynomialRegression(
-			swellDirection,
-			ratings,
-			3
-		);
+		const swellDirectionModel = MLRegression({x:swellDirection, y:ratings}, sinFunction, options);
+
 		const tideModel = new PolynomialRegression(tide, ratings, 2);
 
 		const modelsArray = {
-			windSpeedModel: windSpeedModel,
-			windDirectionModel: windDirectionModel,
-			swellEnergyModel: swellEnergyModel,
-			swellDirectionModel: swellDirectionModel,
-			tideModel: tideModel
+			windSpeedModel: windSpeedModel.coefficients,
+			windDirectionModel: windDirectionModel.parameterValues,
+			swellEnergyModel: swellEnergyModel.coefficients,
+			swellDirectionModel: swellDirectionModel.parameterValues,
+			tideModel: tideModel.coefficients
 		}
 
 		RatingModel.findOneAndUpdate({ _spot: spotID }, { models: modelsArray }, {upsert:true}, function(err, doc){

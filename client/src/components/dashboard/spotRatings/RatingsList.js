@@ -46,7 +46,7 @@ const RatingsList = ({ ratings, currentSpot, hideNights }) => {
 					  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'lightgrey'}}>
 					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{makeHour(new Date(date*1000).getHours())}</div>
 					  	</div>
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: percentageToHsl(score/100, 40, 0)}}>
+							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: percentageToHsl(score/10, 40, 0)}}>
 					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{score.toFixed(0)}</div>
 					  	</div>
 					</div>

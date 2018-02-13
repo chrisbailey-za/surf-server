@@ -5,10 +5,7 @@ const passport = require('passport');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
-const CronJob = require('cron').CronJob;
-
-const tideCall = require('./services/tideCall');
-const mswCall = require('./services/mswCall');
+const modelCreation = require('./services/modelCreation');
 
 require('./models/User');
 require('./models/Spot');
@@ -56,8 +53,7 @@ if (process.env.NODE_ENV === 'production') {
 	});
 }
 
-var tideCron = new CronJob({cronTime: '* * *', onTick: tideCall, start: true, timeZone: 'Africa/Johannesburg'})
-var mswCron = new CronJob({cronTime: '* * * *', onTick: mswCall, start: true, timeZone: 'Africa/Johannesburg'})
+modelCreation('5a603dede53b7a02afb7d995');
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);

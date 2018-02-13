@@ -6,3 +6,4 @@ export const FETCH_FORECAST = 'fetch_forecast';
 export const LOADING_FORECAST = 'loading_state';
 export const FETCH_RATINGS = 'fetch_ratings';
 export const LOADING_RATING = 'loading_rating';
+export const FILTER_SESSIONS = 'filter_sessions';
