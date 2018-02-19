@@ -39,7 +39,7 @@ export default ({ input, label, rating, isActive, meta:{touched, error} }) => {
 		  		</div>
 		  	</div>
 		  	<div className="col s3 m1 valign-wrapper">
-		  		<div id="surfVal" style={{backgroundColor: 'rgba(255,152,0 ,'+input.value/100 +')' }}></div>
+		  		<div id="surfVal" style={{backgroundColor: 'rgba(255,152,0 ,'+input.value/10 +')' }}></div>
 			  	<span style={{position:'absolute', width:'50px', textAlign: 'center'}}>
 				  		{input.value}
 				  </span>

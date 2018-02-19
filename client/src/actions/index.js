@@ -126,10 +126,10 @@ export const saveSpot = (values, history) => async dispatch => {
 		spot: res.data.id
 	};
 
-	axios.post("/api/sessions/add", pseudoMin);
-	axios.post("/api/sessions/add", pseudoMax);
-	axios.post("/api/sessions/add", pseudoPerfect);
-	axios.post("/api/sessions/add", pseudoCrap);
+	await axios.post("/api/sessions/add", pseudoMin);
+	await axios.post("/api/sessions/add", pseudoMax);
+	await axios.post("/api/sessions/add", pseudoPerfect);
+	await axios.post("/api/sessions/add", pseudoCrap);
 
 	await history.push({
 		pathname: "/spot/confirmation",

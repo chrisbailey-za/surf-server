@@ -125,7 +125,7 @@ const renderSuggestions = (values) => {
 
 const BestTable = ({ ratings, spots, hideNights }) => {
 		
-		if(ratings.length > 1 && spots.length > 1){
+		if(ratings && spots){
 
 		const ratingSummary = splitSpotRatings(ratings, spots);
 

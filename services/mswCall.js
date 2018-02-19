@@ -333,6 +333,8 @@ var mswCall = async () => {
 					}
 				});
 
+				ForecastHistory.remove({dayTime: { $lte: date - 1200000 }})
+
 				const forecast = await new Forecast({
 					forecastTable: resultData,
 					date: resultData[0].localTimestamp

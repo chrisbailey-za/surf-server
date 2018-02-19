@@ -30,28 +30,40 @@ const	percentageToHsl = (percentage, hue0, hue1) => {
 }
 
 
+
 const RatingsList = ({ ratings, currentSpot, hideNights }) => {
 		const initialArr = modifyArr(ratings, currentSpot, hideNights)
 
 		if(initialArr){
-		return initialArr.map(({ date, score}) => {
-			return(
-					<div className='col' key={date} style={{textAlign:'center', cursor:'move'}}>
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'lightgrey'}}>
-					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{getWeekday(new Date(date*1000).getDay())}</div>
-					  	</div>
-					  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'lightgrey'}}>
-					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{new Date(date*1000).getDate()}</div>
-					  	</div>
-					  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'lightgrey'}}>
-					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{makeHour(new Date(date*1000).getHours())}</div>
-					  	</div>
-							<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: percentageToHsl(score/10, 40, 0)}}>
-					  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{score.toFixed(0)}</div>
-					  	</div>
-					</div>
-			)
-		});
+		return (
+			initialArr.map(({ date, score, windScore, swellScore, tideScore}) => {
+					return(
+							<div className='col' key={date} style={{textAlign:'center', cursor:'move'}}>
+									<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'lightgrey'}}>
+							  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{getWeekday(new Date(date*1000).getDay())}</div>
+							  	</div>
+							  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'lightgrey'}}>
+							  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{new Date(date*1000).getDate()}</div>
+							  	</div>
+							  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: 'lightgrey'}}>
+							  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{makeHour(new Date(date*1000).getHours())}</div>
+							  	</div>
+									<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: percentageToHsl(score/10, 40, 0)}}>
+							  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{score.toFixed(0)}</div>
+							  	</div>
+							  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: percentageToHsl(swellScore/10, 40, 0)}}>
+							  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{swellScore.toFixed(0)}</div>
+							  	</div>
+							  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: percentageToHsl(windScore/10, 40, 0)}}>
+							  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{windScore.toFixed(0)}</div>
+							  	</div>
+							  	<div className="row valign-wrapper" style={{marginBottom:'0px', paddingTop:'3px', border:'lightgrey', borderStyle: 'solid', borderWidth:'1px', backgroundColor: percentageToHsl(tideScore/10, 40, 0)}}>
+							  		<div className="col" style={{width: '35px', height:'22px', overflow:'hidden'}}>{tideScore.toFixed(0)}</div>
+							  	</div>
+							</div>
+					)
+				})
+		)
 	}else{ return null }
 }
 

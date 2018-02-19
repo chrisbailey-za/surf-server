@@ -1,6 +1,74 @@
 import React, { Component } from "react";
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel } from 'victory';
 
+ // eslint-disable-next-line
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+function getDates(startDate, stopDate, type) {
+
+    var dateArray = [];
+    var currentDate = startDate;
+    		switch(type){
+		      case 'month':
+    			  while (currentDate <= stopDate) {
+			        dateArray.push(new Date (currentDate));
+			        currentDate = currentDate.setMonth(currentDate.getMonth() + 1)
+			       }
+			      break
+		      case 'year':
+    			  while (currentDate <= stopDate) {
+			        dateArray.push(new Date (currentDate));
+			        currentDate = currentDate.setMonth(currentDate.getFullYear() + 1)
+			       }
+			      break
+			    default:
+    			  while (currentDate <= stopDate) {
+			        dateArray.push(new Date (currentDate));
+			        currentDate = currentDate.addDays(1);
+			       }
+        }
+    return dateArray;
+}
+
+
+function formatDate(date, type) {
+  var monthNames = [
+    "Jan", "Feb", "Mar",
+    "Apr", "May", "Jun", "Jul",
+    "Aug", "Sep", "Oct",
+    "Nov", "Dec"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+  switch(type){
+  	case 'month':
+  	  return monthNames[monthIndex] + ' ' + year;
+  	case 'year':
+  	  return year.toString();
+    default: 
+  		return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
+}
+
+function findStart(data, type){
+		switch(type){
+			case 'month':
+				const monthStart = data.reduce((a, e) => Math.min(a, e.month), Infinity);
+				return new Date(monthStart)
+			case 'year':
+				const yearStart = data.reduce((a, e) => Math.min(a, e.year), Infinity);
+				return new Date(yearStart)
+			default:
+				const dayStart = data.reduce((a, e) => Math.min(a, e.day), Infinity);
+				return new Date(dayStart)
+		}
+}
 
 class HistoryChart extends Component {
 
@@ -14,7 +82,16 @@ class HistoryChart extends Component {
 	formatData(raw){
 		// pulls out only the relevant data for HistoryChart
 		const nonPseudo = raw.filter((session) => !session.pseudo);
-		const structured = nonPseudo.map(({ daytime, condition, _spot, pseudo }) => { return {date: daytime, day: daytime?daytime.substring(0,10):null, month: daytime?daytime.substring(0,7):null, year: daytime?daytime.substring(0,4):null, spot: _spot, rating: condition.rating, pseudo: pseudo }});
+		const structured = nonPseudo.map(({ daytime, condition, _spot, pseudo }) => { 
+			if(daytime){
+				const date = new Date(Date.parse(daytime));
+				const day = date.getDate();
+				const month = date.getMonth();
+				const year = date.getFullYear();
+			return {date: date, day: new Date(year, month, day), month: new Date(year, month, 1), year: new Date(year, 0, 1), spot: _spot, rating: condition.rating, pseudo: pseudo };
+			}
+		return {date: null, spot: _spot, rating: condition.rating, pseudo: pseudo } 
+		});
 
 		return this.filterData(structured);
 	}
@@ -28,10 +105,12 @@ class HistoryChart extends Component {
 			return ( (this.props.spotFilterVal ? this.props.spotFilterVal.length>0 ? this.props.spotFilterVal.includes(session.spot) : true : true) && ( this.props.rangeFilterVal.min ? (session.rating >= this.props.rangeFilterVal.min) : true) && ( this.props.rangeFilterVal.max ? (session.rating <= this.props.rangeFilterVal.max): true ) )
 		});
 
-		return this.groupDayData(filtered, this.props.timeGrouping);
+		const dateRange = getDates(findStart(structured, this.props.timeGrouping), new Date(), this.props.timeGrouping)
+
+		return this.groupDayData(filtered, this.props.timeGrouping, dateRange);
 	}
 
-	 groupDayData(filtered, timeGroup){
+	 groupDayData(filtered, timeGroup, dateRange){
 			//case for different options based on grouping state
 			switch(this.props.dataGrouping){
 				case 'count':
@@ -44,7 +123,7 @@ class HistoryChart extends Component {
 						}, {});
 					
 					var counts = [];
-					Object.keys(groupedCount).forEach((e) => counts.push({time:e, val:groupedCount[e]}))
+					dateRange.map(e => counts.push({time:formatDate(e, timeGroup), val:groupedCount[e]?groupedCount[e]:null}))
 
 					return counts;
 
@@ -59,7 +138,7 @@ class HistoryChart extends Component {
 						}, {});
 
 					var minimums = [];
-					Object.keys(groupedMin).forEach((e) => minimums.push({time:e, val:groupedMin[e]}))
+					dateRange.map(e => minimums.push({time:formatDate(e, timeGroup), val:groupedMin[e]?groupedMin[e]:null}))
 
 					return minimums;
 
@@ -74,7 +153,7 @@ class HistoryChart extends Component {
 						}, {});
 					
 					var maximums = [];
-					Object.keys(groupedMax).forEach((e) => maximums.push({time:e, val:groupedMax[e]}))
+					dateRange.map(e => maximums.push({time:formatDate(e, timeGroup), val:groupedMax[e]?groupedMax[e]:null}))
 
 					return maximums;
 
@@ -89,7 +168,7 @@ class HistoryChart extends Component {
 						}, {});
 
 					var averages = [];
-					Object.keys(grouped).forEach((e) => averages.push({time:e, val: (grouped[e].sum / grouped[e].count)}))
+					dateRange.map(e => averages.push({time:formatDate(e, timeGroup), val:grouped[e]?grouped[e].sum/grouped[e].count:null}))
 
 					return averages;
 				}
@@ -102,7 +181,7 @@ class HistoryChart extends Component {
 		return (
 			<div>
 					<div className="valign-wrapper">
-						<VictoryChart domainPadding={{x: 5}} theme={VictoryTheme.material} height={150}>
+						<VictoryChart domainPadding={{x: [1, 100]}} theme={VictoryTheme.material} height={150}>
 							<VictoryAxis
 								theme={VictoryTheme.material}
 								scale="time"
@@ -119,9 +198,10 @@ class HistoryChart extends Component {
 			        />
 								<VictoryBar
 									height={150}
-									barRatio={0.4} 
+									animate={{ onExit: {duration: 400 }, onEnter: {duration: 750}}}
+									barRatio={0.8}
 									data={this.formatData(this.props.sessionData)}
-									//style={{ data: { fill:(d) => d.rating >= 80 ? "#ff9800" : "#0097a7", opacity: 1 } }}
+									style={{ data: { fill:(d) => d.val >= 3 ? "#ff9800" : "#0097a7", opacity: 1 } }}
 									sortKey='time'
 									x='time'
 									y={(d) => d.val}

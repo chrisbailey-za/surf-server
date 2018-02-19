@@ -83,7 +83,7 @@ class SpotList extends Component {
 				</div>
 					{this.renderSpots()}
 				<div className="valign-wrapper">
-					<Link to="/home" style={{width: '100%'}}>
+					<Link to="/" style={{width: '100%'}}>
 						<button className="orange btn-large black-text" type="submit" style={{display: 'block', margin:'auto auto 50px auto', width:'80%', minHeight:'54px', height:'auto', lineHeight: '22px'}}>Cool Beans, Take me Home
 						</button>
 					</Link>

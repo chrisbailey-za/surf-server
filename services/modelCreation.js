@@ -13,7 +13,7 @@ const Sessions = mongoose.model("sessions");
 const modelCreation = async ( spotID ) => {
 
 	Sessions.find({ _spot: spotID }).exec(async function(err, doc) {
-		const ratings = doc.map(s => s.condition.rating / 10);
+		const ratings = doc.map(s => s.condition.rating);
 		const windSpeeds = doc.map(
 			s => (s.condition.windSpeed ? s.condition.windSpeed : null)
 		);
