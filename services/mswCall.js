@@ -328,6 +328,7 @@ var mswCall = async () => {
 						});
 						history.save();
 						doc.remove();
+						console.log('updated conditions')
 					} catch (err) {
 						console.log("no history found");
 					}
@@ -343,6 +344,7 @@ var mswCall = async () => {
 				ratingCalculation(resultData);
 
 			} catch (err) {
+				console.log(err);
 				console.log("noope");
 			}
 		});
@@ -350,4 +352,4 @@ var mswCall = async () => {
 	}
 };
 
-module.exports = mswCall();
+module.exports = mswCall;

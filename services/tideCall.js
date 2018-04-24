@@ -34,7 +34,7 @@ const tideCall = async () => {
 };
 
 
-module.exports = tideCall();
+module.exports = tideCall;
 
 //need to add 0.12 to compensate for difference in LAT and LLD.
 //also need to compensate for GTM+2 by adding two hours
